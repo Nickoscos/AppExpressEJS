@@ -1,0 +1,15 @@
+{
+  "name": "dashboard-cegefos-td1-pelleschi",
+  "version": "1.0.0",
+  "description": "TD1 Node JS & EXPRESS JS",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node app.js"
+  },
+  "author": "N PELLESCHI",
+  "license": "ISC",
+  "dependencies": {
+    "bootstrap": "^5.2.0"
+  }
+}
