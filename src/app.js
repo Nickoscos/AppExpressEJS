@@ -19,7 +19,7 @@ let server = http.createServer((request, response) => {
     });
     let url = request.url;
     if(url === '/'){
-        fs.readFile('./src/pages/accueil.html', null, function (error, data) {
+        fs.readFile(__dirnamePages + 'accueil.html', null, function (error, data) {
             if (error) {
                 throw error;
             } else {
@@ -29,7 +29,7 @@ let server = http.createServer((request, response) => {
         });
     }
     else if(url === '/calculImc'){
-        fs.readFile('./src/pages/calculImc.html', null, function (error, data) {
+        fs.readFile(__dirnamePages + 'calculImc.html', null, function (error, data) {
             if (error) {
                 throw error;
             } else {
