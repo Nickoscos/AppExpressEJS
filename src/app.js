@@ -1,5 +1,5 @@
 console.log("Lancement de l'application");
-console.log("Lancement de l'application");
+
 require('./config/.env');
 
 //Appel du module convertisseurDevise
@@ -16,22 +16,24 @@ let server = http.createServer((request, response) => {
     let url = request.url;
     if(url === '/'){
         fs.readFile(_dirnamePages + 'pages/accueil.html', null, function (error, data) {
-            response.writeHead(200);
-            response.write(data, "binary");
+            response.writeHead(200, { 'Content-Type': 'text/html' });
+            response.write(data);
             response.end();
         });
     }
     else if (url === '/IMC.js'){
         response.writeHead(200);
         fs.readFile(path.join(_dirnamePages + 'IMC.js'), function (error, data) {
-            response.write(data, "binary");
+            response.writeHead(200, { 'Content-Type': 'text/javascript' });
+            response.write(data);
             response.end();
         });
     }
     else if(url === '/calculImc'){
         response.writeHead(200);
         fs.readFile(path.join(_dirnamePages + 'pages/calculImc.html'), function (error, data) {
-            response.write(data, "binary");
+            response.writeHead(200, { 'Content-Type': 'text/html' });
+            response.write(data);
             response.end();
         });
     }
