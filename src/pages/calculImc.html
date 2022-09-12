@@ -12,26 +12,37 @@
 
 <body>
     <h1>Calcul de l'IMC</h1>
-<div class="container">
-    <form id="IMCForm">
-        <div class="row">
-            <div class="col-2"><label>Nom: </label></div>
-            <div class="col-2"><input type="text" id="nom"></div>
-        </div>
-        <div class = "row">
-            <div class="col-2"><label>Taille (en cm): </label></div>
-            <div class="col-2"><input type="number" id="tailleCm"></div>
-        </div>
-        <div class = "row">
-            <div class="col-2"><label>Poids (en kg):  </label></div>
-            <div class="col-2"><input type="number" id="poidsKg"></div>
-        </div>
-        <button type="submit" id="#btn">Calculer</button>
-    </form>
-</div>
+    <div class="container">
+        <form id="IMCForm">
+            <div class="row">
+                <div class="col-2"><label>Nom: </label></div>
+                <div class="col-2"><input type="text" id="nom"></div>
+            </div>
+            <div class = "row">
+                <div class="col-2"><label>Taille (en cm): </label></div>
+                <div class="col-2"><input type="number" id="tailleCm"></div>
+            </div>
+            <div class = "row">
+                <div class="col-2"><label>Poids (en kg):  </label></div>
+                <div class="col-2"><input type="number" id="poidsKg"></div>
+            </div>
+            <button type="submit" id="#btn">Calculer</button>
+        </form>
+    </div>
 
+    <div class="container">
+        <h2 class="row" id="utilisateur"></h2>
+        <p class="row" id="resultatIMC"></p>
+        <p class="row" id="resultatCORP"></p>
+        
+    </div>
 
-<script src="../IMC.js" defer></script>
+    <div class="container col-5">
+        <img src="../assets/img/maigre.png">
+    </div>
+    
+
+    <script src="../IMC.js" defer></script>
 </body>
 <footer>
     <nav class="navbar navbar-expand-lg navbar-light bg-light footer" routerLinkActive="active">
