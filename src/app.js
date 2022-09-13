@@ -14,6 +14,8 @@ let path = require('path');
 let server = http.createServer((request, response) => {
    
     let url = request.url;
+    let extname = path.extname(url);
+    console.log(url)
     if(url === '/'){
         fs.readFile(_dirnamePages + 'pages/accueil.html', null, function (error, data) {
             response.writeHead(200, { 'Content-Type': 'text/html' });
@@ -37,7 +39,14 @@ let server = http.createServer((request, response) => {
             response.end();
         });
     }
-
+    else if(extname === '.png'){
+        response.writeHead(200, { 'Content-Type': 'image/png' });
+        fs.createReadStream(`${_dirnamePages}${url}`).pipe(response);
+    }
+    else if(extname === '.css'){
+        response.writeHead(200, { 'Content-Type': 'text/css' });
+        fs.createReadStream(`${_dirnamePages}${url}`).pipe(response);
+    }
 });
 
 //Choix du port pour le serveur local

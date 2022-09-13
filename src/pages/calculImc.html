@@ -7,7 +7,7 @@
     <title>DashBoard CEGEFOS</title>
 
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
-    
+    <link rel="stylesheet" type="text/css" href="../assets/css/calculImc.css" />
 </head>
 
 <body>
@@ -26,20 +26,23 @@
                 <div class="col-2"><label>Poids (en kg):  </label></div>
                 <div class="col-2"><input type="number" id="poidsKg"></div>
             </div>
-            <button type="submit" id="#btn">Calculer</button>
+            <button type="submit" id="#btn">Calculer</button> <span id="departMessage" >Lors de la première utilisation, cliquer 2 fois sur calculer</span>
         </form>
     </div>
 
     <div class="container">
+
         <h2 class="row" id="utilisateur"></h2>
+
         <p class="row" id="resultatIMC"></p>
+
         <p class="row" id="resultatCORP"></p>
-        
+
+        <img class="row" id="resultatIMG" src="" >
+
     </div>
 
-    <div class="container col-5">
-        <img src="../assets/img/maigre.png">
-    </div>
+
     
 
     <script src="../IMC.js" defer></script>
@@ -55,3 +58,4 @@
     <script src="https://cdn.polyfill.io/v2/polyfill.min.js?features=Intl.~locale.en"></script>
     
 </footer>
+</html>
