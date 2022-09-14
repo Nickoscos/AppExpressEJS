@@ -31,9 +31,25 @@ let server = http.createServer((request, response) => {
             response.end();
         });
     }
+    else if (url === '/convertisseurDevise.js'){
+        response.writeHead(200);
+        fs.readFile(path.join(_dirnamePages + 'convertisseurDevise.js'), function (error, data) {
+            response.writeHead(200, { 'Content-Type': 'text/javascript' });
+            response.write(data);
+            response.end();
+        });
+    }
     else if(url === '/calculImc'){
         response.writeHead(200);
         fs.readFile(path.join(_dirnamePages + 'pages/calculImc.html'), function (error, data) {
+            response.writeHead(200, { 'Content-Type': 'text/html' });
+            response.write(data);
+            response.end();
+        });
+    }
+    else if(url === '/convDevise'){
+        response.writeHead(200);
+        fs.readFile(path.join(_dirnamePages + 'pages/convDevise.html'), function (error, data) {
             response.writeHead(200, { 'Content-Type': 'text/html' });
             response.write(data);
             response.end();

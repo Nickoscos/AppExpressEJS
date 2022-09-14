@@ -1,0 +1,20 @@
+[
+    {
+        "devise1": "USD", 
+        "devise2": "EUR", 
+        "taux": 1.0
+    },
+    {
+        "devise1": "USD", 
+        "devise2": "CNY", 
+        "taux": 6.97
+    },
+    {
+        "devise1": "CNY", 
+        "devise2": "EUR", 
+        "taux": 0.14
+    }
+]
+    
+
+
