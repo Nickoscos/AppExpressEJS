@@ -14,8 +14,8 @@ let path = require('path');
 let pathFile = 'src/assets/json/taux.json';
 
 //Fonction de lecture JSON STREAM READABLE
-function streamReadFile(path){
-    const stream = fs.createReadStream(pathFile);
+function streamReadFile(pathF){
+    const stream = fs.createReadStream(pathF);
     stream.setEncoding('utf8');
     stream.on("data", (data)=> console.log(data));
 }
@@ -26,7 +26,6 @@ let server = http.createServer((request, response) => {
    
     let url = request.url;
     let extname = path.extname(url);
-    console.log(url)
     if(url === '/'){
         fs.readFile(_dirnamePages + 'pages/accueil.html', null, function (error, data) {
             response.writeHead(200, { 'Content-Type': 'text/html' });
