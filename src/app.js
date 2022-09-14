@@ -2,6 +2,7 @@ console.log("Lancement de l'application");
 
 require('./config/.env');
 
+const tauxFct = require('./tauxDevise.js');
 
 //Création du serveur local
 let http = require('http');
@@ -12,16 +13,6 @@ let taux = [];
 
 //Chemin du fichier contenant les taux de devise
 let pathFile = 'src/assets/json/taux.json';
-
-//Fonction de lecture JSON STREAM READABLE
-function streamReadFile(pathF){
-    const stream = fs.createReadStream(pathF); //Lecture du contenu du JSON
-    stream.setEncoding('utf8'); //On encode pour ne pas avoir les octets bruts
-    stream.on("data", (data)=> {
-        taux = JSON.parse(data); //On range le contenu dans taux
-        console.log(taux);
-    });
-}
 
 //Création du serveur HTTP
 let server = http.createServer((request, response) => {
@@ -50,7 +41,7 @@ let server = http.createServer((request, response) => {
             response.write(data);
             response.end();
         });
-        streamReadFile(pathFile);
+        tauxFct.streamReadFile(pathFile);
         // const stream = fs.createReadStream(pathFile);
         // stream.setEncoding('utf8');
         // stream.on("data", (data)=> console.log(data));
