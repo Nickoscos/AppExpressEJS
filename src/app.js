@@ -3,14 +3,25 @@ console.log("Lancement de l'application");
 require('./config/.env');
 
 //Appel du module convertisseurDevise
-require('./convertisseurDevise');
+
 
 //Création du serveur local
 let http = require('http');
 let fs = require('fs');
 let path = require('path');
 
+//Chemin du fichier contenant les taux de devise
+let pathFile = 'src/assets/json/taux.json';
 
+//Fonction de lecture JSON STREAM READABLE
+function streamReadFile(path){
+    const stream = fs.createReadStream(pathFile);
+    stream.setEncoding('utf8');
+    stream.on("data", (data)=> console.log(data));
+}
+
+
+//Création du serveur HTTP
 let server = http.createServer((request, response) => {
    
     let url = request.url;
@@ -38,6 +49,10 @@ let server = http.createServer((request, response) => {
             response.write(data);
             response.end();
         });
+        streamReadFile(pathFile);
+        // const stream = fs.createReadStream(pathFile);
+        // stream.setEncoding('utf8');
+        // stream.on("data", (data)=> console.log(data));
     }
     else if(url === '/calculImc'){
         response.writeHead(200);
