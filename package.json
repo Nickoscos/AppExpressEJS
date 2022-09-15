@@ -11,6 +11,21 @@
   "license": "ISC",
   "dependencies": {
     "bootstrap": "^5.2.0",
-    "dotenv": "^16.0.2"
-  }
+    "browserify": "^17.0.0",
+    "dotenv": "^16.0.2",
+    "uniq": "^1.0.1"
+  },
+  "devDependencies": {
+    "webpack": "^5.74.0",
+    "webpack-cli": "^4.10.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Nickoscos/DashboardCegefos-NodeJS.git"
+  },
+  "keywords": [],
+  "bugs": {
+    "url": "https://github.com/Nickoscos/DashboardCegefos-NodeJS/issues"
+  },
+  "homepage": "https://github.com/Nickoscos/DashboardCegefos-NodeJS#readme"
 }
