@@ -71,7 +71,7 @@ let server = http.createServer((request, response) => {
             console.log('POST');
             var body = ''
             request.on('data',  function(data) {
-                DeviseFct.changeDevise(data, body);
+                DeviseFct.changeDevise(data, body); 
             });
         }
     }
