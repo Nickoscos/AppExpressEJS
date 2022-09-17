@@ -2,14 +2,17 @@ console.log("Lancement de l'application");
 
 require('./config/.env');
 
+
 const tauxFct = require('./tauxDevise.js');
-const DeviseFct = require('./convertisseurDevise.js');
+//const DeviseFct = require('./convertisseurDevise.js');
 
 //Création du serveur local
 let http = require('http');
 let fs = require('fs');
 let path = require('path');
+const { Server } = require("socket.io");
 
+let montants = [];
 
 //Chemin du fichier contenant les taux de devise
 let pathFile = 'src/assets/json/taux.json';
@@ -27,6 +30,14 @@ let server = http.createServer((request, response) => {
             response.end();
         });
     }
+    // else if (url === '/socket.io.js'){
+    //     response.writeHead(200);
+    //     fs.readFile(path.join('/node_modules/socket.io/client-dist/socket.io.js'), function (error, data) {
+    //         response.writeHead(200, { 'Content-Type': 'text/javascript' });
+    //         response.write(data);
+    //         response.end();
+    //     });
+    // }
     else if (url === '/IMC.js'){
         response.writeHead(200);
         fs.readFile(path.join(_dirnamePages + 'IMC.js'), function (error, data) {
@@ -35,20 +46,20 @@ let server = http.createServer((request, response) => {
             response.end();
         });
     }
-    else if (url === '/convertisseurDevise.js'){
+    else if (url === '/scriptDevise.js'){
         response.writeHead(200);
-        fs.readFile(path.join(_dirnamePages + 'tauxDevise.js'), function (error, data) {
+        // fs.readFile(path.join(_dirnamePages + 'tauxDevise.js'), function (error, data) {
+        //     response.writeHead(200, { 'Content-Type': 'text/javascript' });
+        //     response.write(data);
+        //     response.end();
+        // });
+        fs.readFile(path.join(_dirnamePages + 'scriptDevise.js'), function (error, data) {
             response.writeHead(200, { 'Content-Type': 'text/javascript' });
             response.write(data);
             response.end();
         });
-        fs.readFile(path.join(_dirnamePages + 'convertisseurDevise.js'), function (error, data) {
-            response.writeHead(200, { 'Content-Type': 'text/javascript' });
-            response.write(data);
-            response.end();
-        });
-        tauxFct.streamReadFile(pathFile);
-        console.log(tauxFct.taux);
+        // tauxFct.streamReadFile(pathFile);
+        // console.log(tauxFct.taux);
     }
     else if(url === '/calculImc'){
         response.writeHead(200);
@@ -58,7 +69,7 @@ let server = http.createServer((request, response) => {
             response.end();
         });
     }
-    else if(url === '/convDevise'){
+    else if((url === '/convDevise')){
         response.writeHead(200);
         fs.readFile(path.join(_dirnamePages + 'pages/convDevise.html'), function (error, data) {
             response.writeHead(200, { 'Content-Type': 'text/html' });
@@ -67,12 +78,21 @@ let server = http.createServer((request, response) => {
         });
         //Détection envoi formulaire
         if(request.method == 'POST') {
-            tauxFct.streamReadFile(pathFile);
-            console.log('POST');
-            var body = ''
-            request.on('data',  function(data) {
-                DeviseFct.changeDevise(data, body); 
+            request.on('data',  (data) => { 
+                tauxFct.change(pathFile, data);
             });
+
+            // request.on('data',  () => { 
+            //     taux = tauxFct.streamReadFile(pathFile);
+            // }).on('end',  (data) => {
+            //     montants = tauxFct.changeDevise(data, taux)
+            // }
+                
+            //)
+            // request.on('data',  (data) => { 
+            //     montants = tauxFct.changeDevise(data, pathFile); 
+            // });
+
         }
     }
     else if(extname === '.png'){
@@ -84,6 +104,13 @@ let server = http.createServer((request, response) => {
         fs.createReadStream(`${_dirnamePages}${url}`).pipe(response);
     }
 
+});
+
+const io = new Server(server);
+io.on('connection', socket => {
+    console.log(`connect ${socket.id}`);
+  
+    socket.emit('actuValue', tauxFct.montantsSaisie);
 });
 
 //Choix du port pour le serveur local

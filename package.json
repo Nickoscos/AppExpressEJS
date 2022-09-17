@@ -13,6 +13,9 @@
     "bootstrap": "^5.2.0",
     "browserify": "^17.0.0",
     "dotenv": "^16.0.2",
+    "node-fetch": "^3.2.10",
+    "socket.io": "^4.5.2",
+    "socket.io-client": "^4.5.2",
     "uniq": "^1.0.1"
   },
   "devDependencies": {

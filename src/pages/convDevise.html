@@ -8,6 +8,7 @@
 
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
     <link rel="stylesheet" type="text/css" href="../assets/css/calculImc.css" />
+    
 </head>
 
 <body>
@@ -17,22 +18,19 @@
                 <h4>Montant en euros:</h4>
                 <div class="example-full-width" appearance="fill">
                         <label>Montant</label>
-                        <input [(ngModel)]="deviseList[1].montant" name="montantEUR" id="montantEUR" type="number" placeholder="Ex. 15.2 €" 
-                        (change)="detectDeviseDepart('EUR');"/>€
+                        <input name="montantEUR" id="montantEUR" type="number" placeholder="Ex. 15.2 €" step=".01"/>€
                 </div>
                 <br>
                 <h4>Montant en dollars US:</h4>
                 <div class="example-full-width" appearance="fill">
                         <label>Montant</label>
-                        <input [(ngModel)]="deviseList[0].montant" name="montantUSD" id="montantUSD" type="number" placeholder="Ex. 15.2 $US"
-                        (change)="detectDeviseDepart('USD');"/>$US
+                        <input name="montantUSD" id="montantUSD" type="number" placeholder="Ex. 15.2 $US" step=".01"/>$US
                 </div>
                 <br>
                 <h4>Montant en YUAN:</h4>
                 <div class="example-full-width" appearance="fill">
                         <label>Montant</label>
-                        <input [(ngModel)]="deviseList[2].montant" name="montantCNY" id="montantCNY" type="number" placeholder="Ex. 15.2 ¥"
-                        (change)="detectDeviseDepart('CNY');">¥
+                        <input name="montantCNY" id="montantCNY" type="number" placeholder="Ex. 15.2 ¥" step=".01" />¥
                 </div>
                 <br>
                 <div>
@@ -41,8 +39,8 @@
         </form>
         <br>
     </div>
-
-    <!-- <script src="../convertisseurDevise.js" defer></script> -->
+    <!-- <script src="/node_modules/socket.io/client-dist/socket.io.js" defer></script> -->
+    <script type="module" src="../scriptDevise.js" defer></script>
     <!-- <script type="module" src="../tauxDevise.js" ></script> -->
 </body>
 <footer>
@@ -55,6 +53,6 @@
     </nav>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2" crossorigin="anonymous"></script>
     <script src="https://cdn.polyfill.io/v2/polyfill.min.js?features=Intl.~locale.en"></script>
-    
+    <script src="https://cdn.socket.io/4.4.1/socket.io.min.js" integrity="sha384-fKnu0iswBIqkjxrhQCTZ7qlLHOFEgNkRmK2vaO/LbTZSXdJfAu6ewRBdwHPhBo/H" crossorigin="anonymous"></script>
 </footer>
 </html>
