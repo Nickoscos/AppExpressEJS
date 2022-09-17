@@ -1,13 +1,8 @@
 const EventEmitter = require('events');
 let fs = require('fs');
-
 const event = new EventEmitter;
-let taux = [
-    { devise1: 'USD', devise2: 'EUR', taux: 1 },
-    { devise1: 'USD', devise2: 'CNY', taux: 6.97 },
-    { devise1: 'CNY', devise2: 'EUR', taux: 0.14 }];
 
-let taux1 = [
+let taux = [
     { devise1: 'USD', devise2: 'EUR', taux: 1 },
     { devise1: 'USD', devise2: 'CNY', taux: 6.97 },
     { devise1: 'CNY', devise2: 'EUR', taux: 0.14 }];
@@ -17,9 +12,10 @@ let montantsSaisie = {
     USD: 0,
     CNY: 0
 }
-
+/****************************************************** */
+/* Récupération des taux de devise et appel conversion  */
+/****************************************************** */
 function change (pathFile, data) {
-    let montants = [];
     taux.splice(0, taux.length);
     const stream = fs.createReadStream(pathFile); //Lecture du contenu du JSON
     stream.setEncoding('utf8'); //On encode pour ne pas avoir les octets bruts
@@ -27,22 +23,24 @@ function change (pathFile, data) {
         taux= (JSON.parse(data)); //On range le contenu dans taux
         console.log(taux);
     }).on('end', ()=>{
-        event.emit('change', changeDevise(data, taux));
+        event.emit('change', changeDevise(data, taux)); //Génération de l'évènement permettant la conversion de la devise
     })
     
 }
-
+/******************************************************* */
+/*               Fonction de change devise               */
+/******************************************************* */
 function changeDevise(data, tauxlus){
     //Récupération des paramètres URL
     let paramsString = String(data) //transforme les data URL en string pour la class URLSearchParams
     let searchParams = new URLSearchParams(paramsString); //Déclare la classe searchParams qui contient les input du formulaire
 
-    //Rangement des paramètres lus
+    //Rangement des paramètres soumis dans le formulaire
     let MontantEUR = Number(searchParams.get("montantEUR"));
     let MontantUSD = Number(searchParams.get("montantUSD"));
     let MontantCNY = Number(searchParams.get("montantCNY"));
 
-
+    //Détection de la devise modifiée
     if (MontantEUR !== montantsSaisie.EURO ) {
         console.log("Montant EURO changé");
         montantsSaisie.EURO = Math.round(MontantEUR*100)/100;
@@ -59,15 +57,12 @@ function changeDevise(data, tauxlus){
         montantsSaisie.CNY = Math.round(MontantCNY*100)/100;
     }
 
+    //Retourne les montant dans le formulaire
     searchParams.set("montantEUR", montantsSaisie.EURO);
     searchParams.set("montantUSD", montantsSaisie.EURO);
     searchParams.set("montantCNY", montantsSaisie.CNY);
     
     newdata = searchParams.toString();
-
-    console.log("Montant EURO " + montantsSaisie.EURO);
-    console.log("Montant USD " + montantsSaisie.USD);
-    console.log("Montant CNY " + montantsSaisie.CNY);
 
     return montantsSaisie;
 }

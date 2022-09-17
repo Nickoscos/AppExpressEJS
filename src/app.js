@@ -30,14 +30,6 @@ let server = http.createServer((request, response) => {
             response.end();
         });
     }
-    // else if (url === '/socket.io.js'){
-    //     response.writeHead(200);
-    //     fs.readFile(path.join('/node_modules/socket.io/client-dist/socket.io.js'), function (error, data) {
-    //         response.writeHead(200, { 'Content-Type': 'text/javascript' });
-    //         response.write(data);
-    //         response.end();
-    //     });
-    // }
     else if (url === '/IMC.js'){
         response.writeHead(200);
         fs.readFile(path.join(_dirnamePages + 'IMC.js'), function (error, data) {
@@ -48,18 +40,11 @@ let server = http.createServer((request, response) => {
     }
     else if (url === '/scriptDevise.js'){
         response.writeHead(200);
-        // fs.readFile(path.join(_dirnamePages + 'tauxDevise.js'), function (error, data) {
-        //     response.writeHead(200, { 'Content-Type': 'text/javascript' });
-        //     response.write(data);
-        //     response.end();
-        // });
         fs.readFile(path.join(_dirnamePages + 'scriptDevise.js'), function (error, data) {
             response.writeHead(200, { 'Content-Type': 'text/javascript' });
             response.write(data);
             response.end();
         });
-        // tauxFct.streamReadFile(pathFile);
-        // console.log(tauxFct.taux);
     }
     else if(url === '/calculImc'){
         response.writeHead(200);
@@ -81,18 +66,6 @@ let server = http.createServer((request, response) => {
             request.on('data',  (data) => { 
                 tauxFct.change(pathFile, data);
             });
-
-            // request.on('data',  () => { 
-            //     taux = tauxFct.streamReadFile(pathFile);
-            // }).on('end',  (data) => {
-            //     montants = tauxFct.changeDevise(data, taux)
-            // }
-                
-            //)
-            // request.on('data',  (data) => { 
-            //     montants = tauxFct.changeDevise(data, pathFile); 
-            // });
-
         }
     }
     else if(extname === '.png'){
@@ -106,11 +79,12 @@ let server = http.createServer((request, response) => {
 
 });
 
+//Socket permet le lien entre le script js du browser client et le server 
 const io = new Server(server);
 io.on('connection', socket => {
     console.log(`connect ${socket.id}`);
   
-    socket.emit('actuValue', tauxFct.montantsSaisie);
+    socket.emit('actuValue', tauxFct.montantsSaisie); //Génère l'évènement provoquant l'envoie des montants actualisés après calcul
 });
 
 //Choix du port pour le serveur local
