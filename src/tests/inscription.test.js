@@ -1,4 +1,4 @@
-const inscription = require('../inscription.js');
+const inscription = require('../assets/js/inscription.js');
 
 //test 1: Vérification que le nom doit être saisi
 test('le nom doit être saisie pour que le formulaire soit valide', () => {
