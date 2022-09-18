@@ -68,6 +68,20 @@ let server = http.createServer((request, response) => {
             });
         }
     }
+    else if((url === '/inscription')){
+        response.writeHead(200);
+        fs.readFile(path.join(_dirnamePages + 'pages/inscription.html'), function (error, data) {
+            response.writeHead(200, { 'Content-Type': 'text/html' });
+            response.write(data);
+            response.end();
+        });
+        //Détection envoi formulaire
+        if(request.method == 'POST') {
+            request.on('data',  (data) => { 
+                console.log("Soummission du formulaire d'inscription")
+            });
+        }
+    }
     else if(extname === '.png'){
         response.writeHead(200, { 'Content-Type': 'image/png' });
         fs.createReadStream(`${_dirnamePages}${url}`).pipe(response);

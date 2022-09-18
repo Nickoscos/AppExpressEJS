@@ -4,7 +4,7 @@
   "description": "TD1 Node JS & EXPRESS JS",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "jest",
     "start": "node src/app.js"
   },
   "author": "N PELLESCHI",
@@ -13,6 +13,7 @@
     "bootstrap": "^5.2.0",
     "browserify": "^17.0.0",
     "dotenv": "^16.0.2",
+    "jest": "^29.0.3",
     "node-fetch": "^3.2.10",
     "socket.io": "^4.5.2",
     "socket.io-client": "^4.5.2",
