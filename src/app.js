@@ -172,8 +172,6 @@ io.on('connection', socket => {
 });
 
 //Choix du port pour le serveur local
-// server.listen(3331);
-
 server.listen(port);
 
 
