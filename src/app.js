@@ -6,6 +6,10 @@ require('./config/.env');
 const tauxFct = require('./assets/js/tauxDevise.js');
 const imcFct = require('./assets/js/calculIMC.js');
 
+const { check, validationResult }
+    = require('express-validator');
+const bodyparser = require('body-parser')
+
 //Création du serveur local
 const express = require('express')
 const app = express()
@@ -15,8 +19,6 @@ let http = require('http');
 let fs = require('fs');
 let path = require('path');
 const { Server } = require("socket.io");
-
-
 
 //Chemin du fichier contenant les taux de devise
 let pathFile = 'src/assets/json/taux.json';
@@ -74,12 +76,20 @@ app.post('/convDevise', (request, response) => {
     });
 })
 
-//Routage vers page inscription
-app.get('/inscription', (request, response) => {
-    fs.readFile(path.join(_dirnamePages + 'pages/inscription.html'), function (error, data) {
-        response.writeHead(200, { 'Content-Type': 'text/html' });
-        response.write(data);
-        response.end();
+//Routage POST page inscription
+app.post('/inscription', 
+    body('email').custom(value => {
+        return User.findUserByEmail(value).then(user => {
+        if (user) {
+            return Promise.reject('E-mail already in use');
+        }
+        });
+    }),
+    (request, response) => {
+        fs.readFile(path.join(_dirnamePages + 'pages/inscription.html'), function (error, data) {
+            response.writeHead(200, { 'Content-Type': 'text/html' });
+            response.write(data);
+            response.end();
     });
 })
 
