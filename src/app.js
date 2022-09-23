@@ -5,9 +5,8 @@ require('./config/.env');
 
 const tauxFct = require('./assets/js/tauxDevise.js');
 const imcFct = require('./assets/js/calculIMC.js');
+const inscrFct = require('./assets/js/inscription.js');
 
-
-const bodyParser = require('body-parser');
 
 //Création du serveur local
 const express = require('express');
@@ -22,10 +21,6 @@ const { Server } = require("socket.io");
 //Chemin du fichier contenant les taux de devise
 let pathFile = 'src/assets/json/taux.json';
 
-app.use( bodyParser.json() );       // to support JSON-encoded bodies
-app.use(bodyParser.urlencoded({     // to support URL-encoded bodies
-  extended: true
-})); 
 
 //Routage vers page accueil
 app.get('/', (request, response) => {
@@ -88,15 +83,18 @@ app.get('/inscription', (request, response) => {
 })
 
 //Routage POST page inscription
-const { check, validationResult } = require('express-validator');
-app.post('/inscription', 
-    check('email').isEmail(),
-    (request, response) => {
-        const errors = validationResult(request);
-        if (!errors.isEmpty()) {
-            console.log(({ errors: errors.array() }));
-            // console.log(response.status(400).json({ errors: errors.array() }));
-        }
+app.post('/inscription', (request, response) => {
+        request.on('data',  (data) => {
+            inscrFct.validationProfil(data)
+            //Récupération des paramètres URL
+            // let paramsString = String(data) //transforme les data URL en string pour la class URLSearchParams
+            // let searchParams = new URLSearchParams(paramsString); //Déclare la classe searchParams qui contient les input du formulaire
+
+            //Rangement des paramètres soumis dans le formulaire
+            // let email = searchParams.get("email");
+
+            // console.log("email: " + email)
+        });
     });
 
 //Routage vers les fichiers CSS 
