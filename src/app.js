@@ -18,6 +18,23 @@ let fs = require('fs');
 let path = require('path');
 const { Server } = require("socket.io");
 
+date = new Date();
+
+let listPosts = [
+    {
+        titre : "test 1",
+        content: "Ceci est le contenu 1",
+        date: date.toUTCString(),
+        loveit: 0,
+    },
+    {
+        titre : "test 2",
+        content: "Ceci est le contenu 2",
+        date: date.toUTCString(),
+        loveit: 0,
+    }
+]
+
 app.set('views', './src/pages');
 app.set('view engine', 'ejs');
 
@@ -99,7 +116,9 @@ app.post('/inscription', (request, response) => {
 
 //Routage GET vers page Liste Posts
 app.get('/listPosts', (req, res) => {
-    res.render('listePosts');
+    res.render('listePosts', {
+        listPosts: listPosts
+    });
 })
 
 //Routage vers les fichiers CSS 

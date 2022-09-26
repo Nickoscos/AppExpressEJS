@@ -12,17 +12,27 @@
 </head>
 
 <body>
-    
-    <!-- <div class="container-fluid" *ngFor="let post of posts">
-        <div class="row">
-            <div class="col-2">
-                <h4>Titre: </h4><h4>{{post.title}}</h4>
+    <% for (var k = 0; k < listPosts.length; k++) {
+        var post = listPosts[k]; %>
+        <div class="container-fluid mt-2">
+            <div class="container mb-2" style="border: solid grey; background-color:red">
+                <div class="row">
+                    <div><h4 style="float:left">Titre: <%= post.titre %></H4><p style="float:right" ><%= post.date %></p></div>
+                </div>
+                <div class="row">
+                    <p><%= post.content %></p>
+                </div>
+                <div class="row">
+                    <p>Love it : <%= post.loveit %></p>
+                </div>  
+                    <button class ="mb-2" style="border: solid grey; background-color:green">Love it!</button>
+                    <button class ="mb-2" style="border: solid grey; background-color:red">Don't Love it!</button>       
+     
             </div>
-            <div class="col-2">
-                <p>{{post.content}}</p>
-            </div>
+
         </div>
-    </div> -->
+    <% } %>
+
 </body>
 
 <footer>
