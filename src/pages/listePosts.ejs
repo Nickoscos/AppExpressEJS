@@ -36,6 +36,9 @@
                     <button type="submit" class ="mb-2" style="border: solid grey; background-color:green" name="love" value="<%= k %>">Love it!</button>
                     <button type="submit" class ="mb-2" style="border: solid grey; background-color:red" name="dontlove" value="<%= k %>">Don't Love it!</button>
                 </form>
+                <form method="DELETE" action="/delete:id">
+                    <button type="submit" class ="mb-2" style="border: solid grey; background-color:rgb(8, 50, 75)" name="delete" value="<%= k %>">Suppression</button>
+                </form>
             </div>
         </div>
     <% } %>
@@ -49,6 +52,7 @@
             <div class="col-lg-1"><a href="/calculImc">Calcul IMC</a></div>
             <div class="col-lg-1"><a href="/convDevise">Convertisseur Devise</a></div>
             <div class="col-lg-1"><a href="/listPosts">Posts</a></div>
+            <div class="col-lg-1"><a href="/newPost">Nouveau post</a></div>
             <div class="col-lg-1"><a href="/inscription">Inscription</a></div>
 
         </div>
