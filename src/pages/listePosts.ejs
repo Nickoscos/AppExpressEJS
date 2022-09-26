@@ -15,7 +15,14 @@
     <% for (var k = 0; k < listPosts.length; k++) {
         var post = listPosts[k]; %>
         <div class="container-fluid mt-2">
-            <div class="container mb-2" style="border: solid grey; background-color:red">
+            <!-- Permet de gérer la conleur du fond en fonction de l'appréciation du post -->
+            <% if (post.loveit < 1) { %>
+                <div class="container mb-2" style="border: solid grey; background-color:rgb(241, 148, 148)">
+            <% } else { %>
+                <div class="container mb-2" style="border: solid grey; background-color:rgb(187, 250, 185)">
+            <% } %>
+
+            <!-- Contenu du Post -->
                 <div class="row">
                     <div><h4 style="float:left">Titre: <%= post.titre %></H4><p style="float:right" ><%= post.date %></p></div>
                 </div>
@@ -26,12 +33,10 @@
                     <p>Love it : <%= post.loveit %></p>
                 </div>  
                 <form method="POST">
-                    <button class ="mb-2" style="border: solid grey; background-color:green" id="love" value="<% k %>">Love it!</button>
-                    <button class ="mb-2" style="border: solid grey; background-color:red" id="dontlove" value="<% k %>">Don't Love it!</button>
+                    <button type="submit" class ="mb-2" style="border: solid grey; background-color:green" name="love" value="<%= k %>">Love it!</button>
+                    <button type="submit" class ="mb-2" style="border: solid grey; background-color:red" name="dontlove" value="<%= k %>">Don't Love it!</button>
                 </form>
-     
             </div>
-
         </div>
     <% } %>
 
