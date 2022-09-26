@@ -18,6 +18,9 @@ let fs = require('fs');
 let path = require('path');
 const { Server } = require("socket.io");
 
+app.set('views', './src/pages');
+app.set('view engine', 'ejs');
+
 //Chemin du fichier contenant les taux de devise
 let pathFile = 'src/assets/json/taux.json';
 
@@ -93,6 +96,11 @@ app.post('/inscription', (request, response) => {
             response.end();
         });
     });
+
+//Routage GET vers page Liste Posts
+app.get('/listPosts', (req, res) => {
+    res.render('listePosts');
+})
 
 //Routage vers les fichiers CSS 
 app.use(express.static(_dirnamePages + '/assets'));
