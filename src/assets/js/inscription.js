@@ -1,6 +1,8 @@
 const EventEmitter = require('events');
 const event = new EventEmitter;
 
+var passwordValidator = require('password-validator');
+
 let profil = {
     nom : "",
     prenom : "",
@@ -11,7 +13,8 @@ let profil = {
     telephone : 0,
     adresse : "",
     ville : "",
-    codePostal : 0
+    codePostal : 0,
+    valid: false
 }
 
 let Message = {
@@ -43,9 +46,7 @@ function validationProfil(data) {
     profil.telephone = searchParams.get("phone");
     profil.adresse = searchParams.get("adresse");
     profil.ville = searchParams.get("ville");
-
-    console.log(profil);
-
+    profil.codePostal = searchParams.get("codePostal");
     event.emit('validNom', validNom(profil.nom)) //Génération de l'évènement permettant la validation du nom
     
 }
@@ -71,10 +72,11 @@ function validPrenom(prenom){
 }
 
 function validDate(date){
-    if (typeof(date) == Date) {
-        Message.date = "Veuillez saisir une date"
+    console.log(date.length)
+    if (date.length == 0) {
+        Message.dateNaissance = "Veuillez saisir une date"
     } else {
-        Message.date = ""
+        Message.dateNaissance = ""
     }
 
     event.emit('validEmail', validEmail(profil.email))
@@ -82,15 +84,52 @@ function validDate(date){
 
 function validEmail(email){
     const mail = String(email)
-    console.log(email)
-    if (!mail.search('@')) {
+    if (!mail.match(/[a-z0-9_\-\.]+@[a-z0-9_\-\.]+\.[a-z]+/i)) {
         Message.email = "Veuillez saisir une adresse mail"
     } else {
         Message.email = ""
     }
-    console.log(Message)
-    //event.emit('validDateNaissance', validEmail(profil.email))
+    event.emit('validPassword', validPassword(profil.password, profil.confirmPassword))
 }
 
+function validPassword(PWD, confirmPassword){
+    const password = String(PWD)
 
-module.exports = { validationProfil };
+    var schema = new passwordValidator();
+
+    if (!schema.is().min(6).validate(password)) {
+        Message.password = "Veuillez saisir un mot de passe comprenant 6 caractères minimum"
+    } else if (!schema.has().digits(1).validate(password)) {
+        Message.password = "Votre mot de passe doit avoir 1 chiffre au minimum";
+    } else if (password !== String(confirmPassword) ) {
+        Message.password = "Veuillez saisir des mots de passe identiques";
+    } else {
+        Message.password = ""
+    }
+    event.emit('validPhone', validPhone(profil.telephone))
+}
+
+function validPhone(telephone){
+    const phone = String(telephone)
+    if (phone.length !== 10) {
+        Message.telephone = "Veuillez saisir un numéro de téléphone à 10 chiffres"
+    } else {
+        Message.telephone = ""
+    }
+    event.emit('validProfil', validProfil());
+}
+
+function validProfil(){
+    profil.valid = (Message.nom === "" ) && (Message.prenom === "" ) 
+                    && (Message.dateNaissance === "" ) && (Message.email === "" ) 
+                    && (Message.password === "" ) && (Message.telephone === "" );
+    if (profil.valid) {
+        console.log("Inscription ok")
+    } else {
+        console.log("Inscription non ok")
+    }
+    console.log(profil)
+    return Message, profil
+}
+
+module.exports = { validationProfil, profil, Message };

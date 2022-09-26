@@ -86,14 +86,11 @@ app.get('/inscription', (request, response) => {
 app.post('/inscription', (request, response) => {
         request.on('data',  (data) => {
             inscrFct.validationProfil(data)
-            //Récupération des paramètres URL
-            // let paramsString = String(data) //transforme les data URL en string pour la class URLSearchParams
-            // let searchParams = new URLSearchParams(paramsString); //Déclare la classe searchParams qui contient les input du formulaire
-
-            //Rangement des paramètres soumis dans le formulaire
-            // let email = searchParams.get("email");
-
-            // console.log("email: " + email)
+        });
+        fs.readFile(path.join(_dirnamePages + 'pages/inscription.html'), function (error, data) {
+            response.writeHead(200, { 'Content-Type': 'text/html' });
+            response.write(data);
+            response.end();
         });
     });
 
@@ -108,9 +105,9 @@ const server = http.createServer(app);
 const io = new Server(server);
 io.on('connection', socket => {
     console.log(`connect ${socket.id}`);
-    console.log(imcFct.userIMC);
     socket.emit('actuValue', tauxFct.montantsSaisie); //Génère l'évènement provoquant l'envoie des montants de devise actualisés après calcul
     socket.emit('actuIMC', imcFct.userIMC); //Génère l'évènement provoquant l'envoie des montants de devise actualisés après calcul
+    socket.emit('actuInscr', inscrFct.Message, inscrFct.profil);
 });
 
 //Choix du port pour le serveur local

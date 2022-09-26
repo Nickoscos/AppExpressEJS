@@ -19,62 +19,62 @@
                 <div appearance="fill" class="row">
                     <!-- (ngSubmit)="submitBook()"> -->
                     <label>Nom</label>
-                    <input name="nom" id="nom" class="champSaisie" type="text" placeholder="Ex: Dinasi"><span name="spanNom"></span>
+                    <input name="nom" id="nom" class="champSaisie" type="text" placeholder="Ex: Dinasi"><span id="spanNom"></span>
                 </div>
 
                 <!-- Prénom -->
                 <div appearance="fill" class="row">
                     <!-- (ngSubmit)="submitBook()"> -->
                     <label>Prénom</label>
-                    <input name="prenom" id="nom" class="champSaisie" type="text" placeholder="Ex: Erwin">
+                    <input name="prenom" id="prenom" class="champSaisie" type="text" placeholder="Ex: Erwin"><span id="spanPrenom"></span>
                 </div>
 
                 <!-- date de naissance -->
                 <div appearance="fill" class="row">  
                     <label class="p-2 ms-2">Choose a date</label>
-                    <input name="date" id="date" class="champSaisie" type="date" value="2017-06-01">
+                    <input name="date" id="date" class="champSaisie" type="date" value="2017-06-01"><span id="spanDate"></span>
                 </div>  
 
                 <!-- Email -->
                 <div appearance="fill" class="row">
                     <label>Email</label>
-                    <input name="email" id="email" class="champSaisie" type="text" placeholder="Ex: erwin.dinasi@mail.com"  >
+                    <input name="email" id="email" class="champSaisie" type="text" placeholder="Ex: erwin.dinasi@mail.com"><span id="spanEmail"></span>
                 </div>
 
                 <!-- Password -->
                 <div appearance="fill" class="row">
                     <label>Mot de passe</label>
-                    <input id="password" class="champSaisie" type="password" placeholder="Password">
+                    <input name="password" id="password" class="champSaisie" type="password" placeholder="Password"><span id="spanPassword"></span>
                 </div>
 
                 <!-- Confirmation Password -->
                 <div appearance="fill" class="row">
                     <label>Confirmation Mot de passe</label>
-                    <input id="confirmPassword" class="champSaisie" type="password" placeholder="Password">
+                    <input name="confirmPassword" id="confirmPassword" class="champSaisie" type="password" placeholder="Password">
                 </div>
 
                 <!-- Numéro de téléphone -->
                 <div appearance="fill"  class="row">
                     <label>Numéro de téléphone</label>
-                    <input id="phone" class="champSaisie" type="number" placeholder="Ex: 0655667788">
+                    <input name="phone" id="phone" class="champSaisie" type="number" placeholder="Ex: 0655667788"><span id="spanPhone"></span>
                 </div>
 
                 <!-- adresse -->
                 <div appearance="fill" class="row">
                     <label>adresse</label>
-                    <input id="adresse" class="champSaisie" type="text" placeholder="Ex: 12 rue de la vile">
+                    <input name="adresse" id="adresse" class="champSaisie" type="text" placeholder="Ex: 12 rue de la ville">
                 </div>
                 
                 <!-- Ville -->
                 <div appearance="fill" class="row">
                     <label>Ville</label>
-                    <input id="ville" class="champSaisie" type="text" placeholder="Ex: Toulouse">
+                    <input name="ville" id="ville" class="champSaisie" type="text" placeholder="Ex: Toulouse">
                 </div>
 
                 <!-- Code Postal -->
                 <div appearance="fill" class="row">
                     <label>Code Postal</label>
-                    <input id="codePostal" class="champSaisie" type="number" placeholder="Ex: 31000">
+                    <input name="codePostal" id="codePostal" class="champSaisie" type="number" placeholder="Ex: 31000">
                 </div>      
 
                 <div class="row p-2">
@@ -85,6 +85,8 @@
         </div>
 
     </div>
+
+    <script type="module" src="/js/scriptInscription.js" defer></script>
 </body>
 <footer>
     <nav class="navbar navbar-expand-lg navbar-light bg-light footer" routerLinkActive="active">
