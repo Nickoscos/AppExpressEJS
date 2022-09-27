@@ -47,9 +47,9 @@
                         </form>
                     </div>
                     <div class="col-2">
-                        <form method="POST" action="/ListPosts/<%- k %>?_method=PUT">
-                            <input type="hidden" name="_method" value="PUT">
-                            <button type="submit" class ="mb-2" style="border: solid grey; background-color:rgb(43, 174, 250)" name="put" value="<%= k %>">Mise à jour</button>
+                        <form method="GET" action="/ListPosts/<%- k %>?_method=GET">
+                            <input type="hidden" name="_method" value="GET">
+                            <button type="submit" class ="mb-2" style="border: solid grey; background-color:rgb(43, 174, 250)" name="GET" value="<%= k %>">Mise à jour</button>
                         </form>
                     </div>
                 </div>

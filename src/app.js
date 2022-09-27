@@ -142,23 +142,29 @@ app.delete('/ListPosts/:id', (req, res) => {
         postsFct.deletePost(data)
     // Rafraichi la page une fois la mise à jour de l'appréciation
     }).on('end', ()=>{
-        res.render('listePosts', {
-            listPosts: postsFct.listPosts
-        });
+        res.redirect('/listPosts');
+    });
+})
+
+//Routage GET page new Posts
+app.get('/ListPosts/:id', (req, res) => {
+    let id = req.params.id
+    console.log(id)
+    res.render('updatePost', {
+        post: postsFct.listPosts[id],
+        id: id
     });
 })
 
 //Routage PUT page new Posts
 app.put('/ListPosts/:id', (req, res) => {
-    res.send('Got a PUT request at /listPosts');
-    // req.on('data', (data) => {
-    //     //postsFct.deletePost(data)
-    // // Rafraichi la page une fois la mise à jour de l'appréciation
-    // }).on('end', ()=>{
-    //     res.render('listePosts', {
-    //         listPosts: postsFct.listPosts
-    //     });
-    // });
+    let id = req.params.id
+    req.on('data', (data) => {
+        postsFct.updatePost(data, id)
+    // Rafraichi la page une fois la mise à jour de l'appréciation
+    }).on('end', ()=>{
+        res.redirect('/listPosts');
+    });
 })
 
 //Routage vers les fichiers CSS 

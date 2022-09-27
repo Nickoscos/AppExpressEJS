@@ -84,10 +84,31 @@ function deletePost(data){
     if (searchParams.get("delete")!==null){ //Détection d'un appui sur love it
         id=searchParams.get("delete");
         console.log(id);
-        listPosts.splice(id);
+        listPosts.splice(id,1);
     } 
 
     
 }
 
-module.exports = {listPosts, lovePost, addPost, deletePost}
+//Fonction mise à jour post
+function updatePost(data, id){
+
+    //Récupération des paramètres URL
+    let paramsString = String(data) //transforme les data URL en string pour la class URLSearchParams
+    let searchParams = new URLSearchParams(paramsString); //Déclare la classe searchParams qui contient les input du formulaire
+
+    let date = new Date();
+
+    //Rangement des paramètres saisies dans l'objet à ajouter
+    let post = new Post(
+        searchParams.get("titre"),
+        searchParams.get("content"),
+        date
+    );
+    
+    //Modification de l'objet dans la liste
+    listPosts[id]=post;
+
+}
+
+module.exports = {listPosts, lovePost, addPost, deletePost, updatePost}
