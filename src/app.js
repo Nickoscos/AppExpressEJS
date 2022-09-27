@@ -6,7 +6,10 @@ require('./config/.env');
 const tauxFct = require('./assets/js/tauxDevise.js');
 const imcFct = require('./assets/js/calculIMC.js');
 const inscrFct = require('./assets/js/inscription.js');
-const postsFct = require('./assets/js/posts.js')
+const postsFct = require('./assets/js/posts.js');
+
+const mongoose = require('mongoose');
+const bodyParser = require('body-parser');
 
 //Création du serveur local
 const express = require('express');
@@ -20,6 +23,14 @@ let path = require('path');
 const { Server } = require("socket.io");
 
 
+//Connection mongoose
+mongoose.Promise = global.Promise;
+mongoose.connect('mongodb://localhost/DASHBOARD_CEGEFOS');
+
+// bodyparser
+app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.json());
+
 app.set('views', './src/pages');
 app.set('view engine', 'ejs');
 
@@ -31,11 +42,7 @@ let pathFile = 'src/assets/json/taux.json';
 
 //Routage vers page accueil
 app.get('/', (request, response) => {
-    fs.readFile(_dirnamePages + 'pages/accueil.html', null, function (error, data) {
-        response.writeHead(200, { 'Content-Type': 'text/html' });
-        response.write(data);
-        response.end();
-    });
+    response.render('accueil');
 })
 
 //Routage vers page calcul IMC
@@ -91,9 +98,9 @@ app.get('/inscription', (request, response) => {
 
 //Routage POST page inscription
 app.post('/inscription', (request, response) => {
-        request.on('data',  (data) => {
-            inscrFct.validationProfil(data)
-        });
+        // request.on('data',  (data) => {
+            inscrFct.validationProfil(request.body);
+        // });
         fs.readFile(path.join(_dirnamePages + 'pages/inscription.html'), function (error, data) {
             response.writeHead(200, { 'Content-Type': 'text/html' });
             response.write(data);

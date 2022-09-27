@@ -35,19 +35,19 @@ function validationProfil(data) {
     //Récupération des paramètres URL
     let paramsString = String(data) //transforme les data URL en string pour la class URLSearchParams
     let searchParams = new URLSearchParams(paramsString); //Déclare la classe searchParams qui contient les input du formulaire
-
+    console.log(data)
     //Récupération des données saisies
-    profil.nom = searchParams.get("nom");
-    profil.prenom = searchParams.get("prenom");
-    profil.dateNaissance = searchParams.get("date");
-    profil.email = searchParams.get("email");
-    profil.password = searchParams.get("password");
-    profil.confirmPassword = searchParams.get("confirmPassword");
-    profil.telephone = searchParams.get("phone");
-    profil.adresse = searchParams.get("adresse");
-    profil.ville = searchParams.get("ville");
-    profil.codePostal = searchParams.get("codePostal");
-    event.emit('validNom', validNom(profil.nom)) //Génération de l'évènement permettant la validation du nom
+    // profil.nom = searchParams.get("nom");
+    // profil.prenom = searchParams.get("prenom");
+    // profil.dateNaissance = searchParams.get("date");
+    // profil.email = searchParams.get("email");
+    // profil.password = searchParams.get("password");
+    // profil.confirmPassword = searchParams.get("confirmPassword");
+    // profil.telephone = searchParams.get("phone");
+    // profil.adresse = searchParams.get("adresse");
+    // profil.ville = searchParams.get("ville");
+    // profil.codePostal = searchParams.get("codePostal");
+    // event.emit('validNom', validNom(profil.nom)) //Génération de l'évènement permettant la validation du nom
     
 }
 
