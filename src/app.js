@@ -10,6 +10,7 @@ const postsFct = require('./assets/js/posts.js')
 
 //Création du serveur local
 const express = require('express');
+var methodOverride = require('method-override')
 const app = express();
 const port = 3331;
 
@@ -21,6 +22,8 @@ const { Server } = require("socket.io");
 
 app.set('views', './src/pages');
 app.set('view engine', 'ejs');
+
+app.use(methodOverride('_method'));
 
 //Chemin du fichier contenant les taux de devise
 let pathFile = 'src/assets/json/taux.json';
@@ -127,14 +130,29 @@ app.post('/newPost', (req, res) => {
     req.on('data', (data) => {
         postsFct.addPost(data)
     // Rafraichi la page une fois la mise à jour de l'appréciation
-    })
+    }).on('end', ()=>{
+        res.redirect('/listPosts');
+    });
 });
 
 //Routage DELETE page new Posts
-app.delete('/delete:id', (req, res) => {
-    res.send('Got a DELETE request at /listPosts');
-    // req.on('delete', (data) => {
-    //     postsFct.deletePost(data)
+app.delete('/ListPosts/:id', (req, res) => {
+    //res.send('Got a DELETE request at /listPosts');
+    req.on('data', (data) => {
+        postsFct.deletePost(data)
+    // Rafraichi la page une fois la mise à jour de l'appréciation
+    }).on('end', ()=>{
+        res.render('listePosts', {
+            listPosts: postsFct.listPosts
+        });
+    });
+})
+
+//Routage PUT page new Posts
+app.put('/ListPosts/:id', (req, res) => {
+    res.send('Got a PUT request at /listPosts');
+    // req.on('data', (data) => {
+    //     //postsFct.deletePost(data)
     // // Rafraichi la page une fois la mise à jour de l'appréciation
     // }).on('end', ()=>{
     //     res.render('listePosts', {

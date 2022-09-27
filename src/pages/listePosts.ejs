@@ -32,13 +32,28 @@
                 <div class="row">
                     <p>Love it : <%= post.loveit %></p>
                 </div>  
-                <form method="POST">
-                    <button type="submit" class ="mb-2" style="border: solid grey; background-color:green" name="love" value="<%= k %>">Love it!</button>
-                    <button type="submit" class ="mb-2" style="border: solid grey; background-color:red" name="dontlove" value="<%= k %>">Don't Love it!</button>
-                </form>
-                <form method="DELETE" action="/delete:id">
-                    <button type="submit" class ="mb-2" style="border: solid grey; background-color:rgb(8, 50, 75)" name="delete" value="<%= k %>">Suppression</button>
-                </form>
+                <div class="row">
+                    <div class="col-8">
+                        <form method="POST" >
+                            <button type="submit" class ="mb-2" style="border: solid grey; background-color:green" name="love" value="<%= k %>">Love it!</button>
+                            <button type="submit" class ="mb-2" style="border: solid grey; background-color:red" name="dontlove" value="<%= k %>">Don't Love it!</button>
+                        </form>
+                    </div>
+            
+                    <div class="col-2">
+                        <form method="POST" action="/ListPosts/<%- k %>?_method=DELETE" >
+                            <input type="hidden" name="_method" value="delete">
+                            <button type="submit" class ="mb-2" style="border: solid grey; background-color:rgb(140, 143, 143)" name="delete" value="<%= k %>">Suppression</button>
+                        </form>
+                    </div>
+                    <div class="col-2">
+                        <form method="POST" action="/ListPosts/<%- k %>?_method=PUT">
+                            <input type="hidden" name="_method" value="PUT">
+                            <button type="submit" class ="mb-2" style="border: solid grey; background-color:rgb(43, 174, 250)" name="put" value="<%= k %>">Mise à jour</button>
+                        </form>
+                    </div>
+                </div>
+                
             </div>
         </div>
     <% } %>

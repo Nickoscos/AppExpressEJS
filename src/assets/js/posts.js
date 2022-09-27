@@ -78,12 +78,13 @@ function deletePost(data){
     let searchParams = new URLSearchParams(paramsString); //Déclare la classe searchParams qui contient les input du formulaire
 
     let id = null
-    console.log("delete");
+    console.log(searchParams);
     // console.log(searchParams.get("delete"));
 
     if (searchParams.get("delete")!==null){ //Détection d'un appui sur love it
         id=searchParams.get("delete");
-        listPosts.splice(id+1);
+        console.log(id);
+        listPosts.splice(id);
     } 
 
     
