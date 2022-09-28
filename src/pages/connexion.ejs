@@ -1,0 +1,55 @@
+<!doctype html>
+<html lang="fr">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>DashBoard CEGEFOS</title>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css" href="/css/inscription.css" />
+    
+</head>
+
+<body>
+    <div class="container-fluid justify-content-center text-center">
+        <div class="p-2 col-sm-4 p-2 col-sm-4 mx-auto">
+            <form id="#connForm" method="POST">
+                <!-- Email -->
+                <div appearance="fill" class="row">
+                    <label>Email</label>
+                    <input name="email" id="email" class="champSaisie" type="text" placeholder="Ex: erwin.dinasi@mail.com"><span id="spanEmail"></span>
+                </div>
+
+                <!-- Password -->
+                <div appearance="fill" class="row">
+                    <label>Mot de passe</label>
+                    <input name="password" id="password" class="champSaisie" type="password" placeholder="Password"><span id="spanPassword"></span>
+                </div>
+
+                <div class="row p-2">
+                    <button type="submit">Connexion</button>
+                </div>
+            </form>
+            
+        </div>
+        <span name="etat"><%= etat %></span>
+    </div>
+
+    <script type="module" src="/js/scriptInscription.js" defer></script>
+</body>
+<footer>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light footer" routerLinkActive="active">
+        <div class="container-fluid">
+            <div class="col-lg-1"><a href="/" >Accueil</a></div>
+            <div class="col-lg-1"><a href="/calculImc">Calcul IMC</a></div>
+            <div class="col-lg-1"><a href="/convDevise">Convertisseur Devise</a></div>
+            <div class="col-lg-1"><a href="/listPosts">Posts</a></div>
+            <div class="col-lg-1"><a href="/newPost">Nouveau post</a></div>
+            <div class="col-lg-1"><a href="/inscription">Inscription</a></div>
+            <div class="col-lg-1"><a href="/connexion">Connexion</a></div>
+        </div>
+    </nav>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2" crossorigin="anonymous"></script>
+</footer>
+</html>   

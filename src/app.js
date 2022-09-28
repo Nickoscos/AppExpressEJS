@@ -26,7 +26,7 @@ const { Server } = require("socket.io");
 
 //Connection mongoose
 mongoose.Promise = global.Promise;
-mongoose.connect('mongodb://localhost/DASHBOARD_CEGEFOS');
+mongoose.connect('mongodb://localhost/Dashboard_CEGEFOS');
 
 // bodyparser
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -86,22 +86,19 @@ app.post('/convDevise', (request, response) => {
 
 //Routage vers page inscription
 app.get('/inscription', (request, response) => {
-    fs.readFile(path.join(_dirnamePages + 'pages/inscription.html'), function (error, data) {
-        response.writeHead(200, { 'Content-Type': 'text/html' });
-        response.write(data);
-        response.end();
-    });
+    response.render('inscription');
+
 })
 
 //Routage POST page inscription
 app.post('/inscription', (request, response) => {
         inscrFct.validationProfil(request.body);
-        crmFct.addNewUser(request, response);
-        fs.readFile(path.join(_dirnamePages + 'pages/inscription.html'), function (error, data) {
-            response.writeHead(200, { 'Content-Type': 'text/html' });
-            response.write(data);
-            response.end();
-        });
+        if (inscrFct.profil.valid) {
+            crmFct.addNewUser(request, response);
+            response.render('accueil');
+        } else {
+            response.render('inscription');
+        }
     });
 
 //Routage GET vers page Liste Posts
@@ -157,7 +154,7 @@ app.get('/ListPosts/:id', (req, res) => {
         post: postsFct.listPosts[id],
         id: id
     });
-})
+});
 
 //Routage PUT page new Posts
 app.put('/ListPosts/:id', (req, res) => {
@@ -168,7 +165,20 @@ app.put('/ListPosts/:id', (req, res) => {
     }).on('end', ()=>{
         res.redirect('/listPosts');
     });
-})
+});
+
+//Routage vers page connexion
+app.get('/connexion', (request, response) => {
+    response.render('connexion', { 
+        etat : ""
+    });
+    console.log(crmFct.session.message);
+});
+
+//Routage POST page connexion
+app.post('/connexion', (request, response) => {
+    crmFct.findUser(request, response);
+});
 
 //Routage vers les fichiers CSS 
 app.use(express.static(_dirnamePages + '/assets'));

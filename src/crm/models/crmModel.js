@@ -12,7 +12,7 @@ const UserSchema = new Schema({
     adresse: { type: String },
     ville: { type: String },
     codePostal: { type: String },
-    created_date: { type: date, default: Date.now },
+    created_date: { type: Date, default: Date.now },
 })
 
 module.exports = { UserSchema }

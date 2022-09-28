@@ -10,6 +10,7 @@
   "author": "N PELLESCHI",
   "license": "ISC",
   "dependencies": {
+    "bcrypt": "^5.0.1",
     "body-parser": "^1.20.0",
     "bootstrap": "^5.2.0",
     "browserify": "^17.0.0",
