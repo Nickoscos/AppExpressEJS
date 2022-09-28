@@ -12,9 +12,6 @@ let userIMC = {
 
 // Fonction qui récupère les données saisies pour calculer l'IMC
 function Calcul(data) {
-    //Récupération des paramètres URL
-    // let paramsString = String(data) //transforme les data URL en string pour la class URLSearchParams
-    // let searchParams = new URLSearchParams(paramsString); //Déclare la classe searchParams qui contient les input du formulaire
 
     userIMC.nom = data.nom;
     userIMC.tailleCm = data.tailleCm;

@@ -32,10 +32,7 @@ let Message = {
 
 // Fonction qui récupère les données saisies lors de l'inscription
 function validationProfil(data) {
-    //Récupération des paramètres URL
-    let paramsString = String(data) //transforme les data URL en string pour la class URLSearchParams
-    let searchParams = new URLSearchParams(paramsString); //Déclare la classe searchParams qui contient les input du formulaire
-    console.log(data)
+
     //Récupération des données saisies
     profil.nom = data.nom;
     profil.prenom = data.prenom;

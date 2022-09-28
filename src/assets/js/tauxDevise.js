@@ -31,14 +31,12 @@ function change (pathFile, data) {
 /*               Fonction de change devise               */
 /******************************************************* */
 function changeDevise(data, tauxlus){
-    //Récupération des paramètres URL
-    let paramsString = String(data) //transforme les data URL en string pour la class URLSearchParams
-    let searchParams = new URLSearchParams(paramsString); //Déclare la classe searchParams qui contient les input du formulaire
 
     //Rangement des paramètres soumis dans le formulaire
-    let MontantEUR = Number(searchParams.get("montantEUR"));
-    let MontantUSD = Number(searchParams.get("montantUSD"));
-    let MontantCNY = Number(searchParams.get("montantCNY"));
+
+    let MontantEUR = Number(data.montantEUR);
+    let MontantUSD = Number(data.montantUSD);
+    let MontantCNY = Number(data.montantCNY);
 
     //Détection de la devise modifiée
     if (MontantEUR !== montantsSaisie.EURO ) {
@@ -58,11 +56,10 @@ function changeDevise(data, tauxlus){
     }
 
     //Retourne les montant dans le formulaire
-    searchParams.set("montantEUR", montantsSaisie.EURO);
-    searchParams.set("montantUSD", montantsSaisie.EURO);
-    searchParams.set("montantCNY", montantsSaisie.CNY);
+    data.montantEUR = montantsSaisie.EURO;
+    data.montantUSD = montantsSaisie.EURO;
+    data.montantCNY = montantsSaisie.CNY;
     
-    newdata = searchParams.toString();
 
     return montantsSaisie;
 }
