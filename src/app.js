@@ -8,7 +8,7 @@ const imcFct = require('./assets/js/calculIMC.js');
 const inscrFct = require('./assets/js/inscription.js');
 const postsFct = require('./assets/js/posts.js');
 
-const mongoose = require('mongoose');
+// const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
 
 //Création du serveur local
@@ -24,8 +24,8 @@ const { Server } = require("socket.io");
 
 
 //Connection mongoose
-mongoose.Promise = global.Promise;
-mongoose.connect('mongodb://localhost/DASHBOARD_CEGEFOS');
+// mongoose.Promise = global.Promise;
+// mongoose.connect('mongodb://localhost/DASHBOARD_CEGEFOS');
 
 // bodyparser
 app.use(bodyParser.urlencoded({ extended: true }));
