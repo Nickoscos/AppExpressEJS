@@ -29,7 +29,7 @@ function afficherResultat(userIMC) {
         html_img.setAttribute("src","/img/maigre.png");
     } else if (userIMC.resultat >=18.5 && userIMC.resultat<25) {
         document.getElementById("resultatCORP").innerHTML = "Vous avez une corpulence normale";
-        html_img.setAttribute("src","/img/notmal.png");
+        html_img.setAttribute("src","/img/normal.png");
     } else if (userIMC.resultat >=25 && userIMC.resultat<30) {
         document.getElementById("resultatCORP").innerHTML = "Vous êtes en surpoids";
         html_img.setAttribute("src","/img/gros.png");

@@ -13,13 +13,12 @@ let userIMC = {
 // Fonction qui récupère les données saisies pour calculer l'IMC
 function Calcul(data) {
     //Récupération des paramètres URL
-    let paramsString = String(data) //transforme les data URL en string pour la class URLSearchParams
-    let searchParams = new URLSearchParams(paramsString); //Déclare la classe searchParams qui contient les input du formulaire
+    // let paramsString = String(data) //transforme les data URL en string pour la class URLSearchParams
+    // let searchParams = new URLSearchParams(paramsString); //Déclare la classe searchParams qui contient les input du formulaire
 
-
-    userIMC.nom = searchParams.get("nom");
-    userIMC.tailleCm = searchParams.get("tailleCm");
-    userIMC.poidsKg = searchParams.get("poidsKg");
+    userIMC.nom = data.nom;
+    userIMC.tailleCm = data.tailleCm;
+    userIMC.poidsKg = data.poidsKg;
 
     let tailleM = userIMC.tailleCm/100;
     console.log(userIMC.poidsKg/(tailleM*tailleM))
@@ -28,11 +27,10 @@ function Calcul(data) {
     console.log("IMC: " + userIMC.resultat);
 
     //Retourne les montant dans le formulaire
-    searchParams.set("nom", userIMC.nom);
-    searchParams.set("tailleCm", userIMC.tailleCm);
-    searchParams.set("poidsKg", userIMC.poidsKg);
-    
-    data = searchParams.toString();
+    data.nom = userIMC.nom;
+    data.tailleCm = userIMC.tailleCm;
+    data.poidsKg = userIMC.poidsKg;
+
 
     return userIMC;
 

@@ -56,9 +56,9 @@ app.get('/calculImc', (request, response) => {
 
 //Routage POST page calcul IMC
 app.post('/calculImc', (request, response) => {
-    request.on('data',  (data) => { 
-        imcFct.Calcul(data);
-    });
+    //request.on('data',  (data) => { 
+        imcFct.Calcul(request.body);
+    //});
     fs.readFile(path.join(_dirnamePages + 'pages/calculImc.html'), function (error, data) {
         response.writeHead(200, { 'Content-Type': 'text/html' });
         response.write(data);
@@ -99,7 +99,7 @@ app.get('/inscription', (request, response) => {
 //Routage POST page inscription
 app.post('/inscription', (request, response) => {
         // request.on('data',  (data) => {
-            inscrFct.validationProfil(request.body);
+        inscrFct.validationProfil(request.body);
         // });
         fs.readFile(path.join(_dirnamePages + 'pages/inscription.html'), function (error, data) {
             response.writeHead(200, { 'Content-Type': 'text/html' });
