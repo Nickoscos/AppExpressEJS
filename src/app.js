@@ -43,7 +43,9 @@ let pathFile = 'src/assets/json/taux.json';
 
 //Routage vers page accueil
 app.get('/', (request, response) => {
-    response.render('accueil');
+    response.render('accueil', {
+        session: crmFct.session
+    });
 })
 
 //Routage vers page calcul IMC
@@ -86,7 +88,9 @@ app.post('/convDevise', (request, response) => {
 
 //Routage vers page inscription
 app.get('/inscription', (request, response) => {
-    response.render('inscription');
+    response.render('inscription', {
+        session: crmFct.session
+    });
 
 })
 
@@ -95,16 +99,21 @@ app.post('/inscription', (request, response) => {
         inscrFct.validationProfil(request.body);
         if (inscrFct.profil.valid) {
             crmFct.addNewUser(request, response);
-            response.render('accueil');
+            response.render('accueil', {
+                session: crmFct.session
+            });
         } else {
-            response.render('inscription');
+            response.render('inscription', {
+                session: crmFct.session
+            });
         }
     });
 
 //Routage GET vers page Liste Posts
 app.get('/listPosts', (req, res) => {
     res.render('listePosts', {
-        listPosts: postsFct.listPosts
+        listPosts: postsFct.listPosts,
+        session: crmFct.session
     });
 })
 
@@ -115,14 +124,17 @@ app.post('/listPosts', (req, res) => {
     // Rafraichi la page une fois la mise à jour de l'appréciation
     }).on('end', ()=>{
         res.render('listePosts', {
-            listPosts: postsFct.listPosts
+            listPosts: postsFct.listPosts,
+            session: crmFct.session
         });
     });
 })
 
 //Routage GET vers page new Post
 app.get('/newPost', (req, res) => {
-    res.render('newPost');
+    res.render('newPost', {
+        session: crmFct.session
+    });
 })
 
 //Routage POST page new Posts
@@ -170,9 +182,19 @@ app.put('/ListPosts/:id', (req, res) => {
 //Routage vers page connexion
 app.get('/connexion', (request, response) => {
     response.render('connexion', { 
-        etat : ""
+        etat : "",
+        session: crmFct.session
     });
     console.log(crmFct.session.message);
+});
+
+//Routage POST page inscription
+app.post('/deconnexion', (request, response) => {
+    crmFct.session.message = "";
+    crmFct.session.active = false;
+    response.render('accueil' , {
+        session: crmFct.session
+    });
 });
 
 //Routage POST page connexion

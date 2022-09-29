@@ -32,7 +32,9 @@ const findUser = (req, res) => {
                 if(req.body.password === user.password){
                     session.message = 'identification ok';
                     session.active = true;
-                    res.render('accueil');
+                    res.render('accueil', {
+                        session: session
+                    });
                 } else {
                     session.message = 'Le mot de passe est erroné';   
                     session.active = false;
