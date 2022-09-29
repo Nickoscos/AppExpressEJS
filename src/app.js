@@ -50,22 +50,33 @@ app.get('/', (request, response) => {
 
 //Routage vers page calcul IMC
 app.get('/calculImc', (request, response) => {
-        fs.readFile(path.join(_dirnamePages + 'pages/calculImc.html'), function (error, data) {
-            response.writeHead(200, { 'Content-Type': 'text/html' });
-            response.write(data);
-            response.end();
+        response.render('calculImc', {
+            nom : "",
+            tailleCm : "",
+            poidsKg : "", 
+            resultatUser : "",
+            resultatIMC : "",
+            resultatUser : "",
+            resultatCORP: "",
+            image : ""
         });
 })
 
 //Routage POST page calcul IMC
 app.post('/calculImc', (request, response) => {
     imcFct.Calcul(request.body);
-    fs.readFile(path.join(_dirnamePages + 'pages/calculImc.html'), function (error, data) {
-        response.writeHead(200, { 'Content-Type': 'text/html' });
-        response.write(data);
-        response.end();
+    console.log(imcFct.userIMC.nom)
+    response.render('calculImc', {
+        nom : imcFct.userIMC.nom,
+        tailleCm : imcFct.userIMC.tailleCm,
+        poidsKg : imcFct.userIMC.poidsKg,
+        resultatIMC : imcFct.userIMC.resultatIMC,
+        resultatUser : imcFct.userIMC.resultatUser,
+        resultatCORP: imcFct.userIMC.resultatCORP,
+        image : imcFct.userIMC.image
     });
-})
+
+});
 
 //Routage vers page convertisseur devise
 app.get('/convDevise', (request, response) => {

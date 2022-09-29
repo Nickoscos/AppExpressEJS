@@ -16,15 +16,15 @@
         <form id="#IMCForm" method="POST">
             <div class="row">
                 <div class="col-2"><label>Nom: </label></div>
-                <div class="col-2"><input type="text" name="nom" id="nom"></div>
+                <div class="col-2"><input type="text" name="nom" id="" value="<%= nom %>"></div>
             </div>
             <div class = "row">
                 <div class="col-2"><label>Taille (en cm): </label></div>
-                <div class="col-2"><input type="number" name="tailleCm" id="tailleCm"></div>
+                <div class="col-2"><input type="number" name="tailleCm" id="tailleCm" value="<%= tailleCm %>"></div>
             </div>
             <div class = "row">
                 <div class="col-2"><label>Poids (en kg):  </label></div>
-                <div class="col-2"><input type="number" name="poidsKg" id="poidsKg"></div>
+                <div class="col-2"><input type="number" name="poidsKg" id="poidsKg" value="<%= poidsKg %>"></div>
             </div>
             <button type="submit" id="#btn">Calculer</button>
         </form>
@@ -32,13 +32,13 @@
 
     <div class="container">
 
-        <h2 class="row" id="utilisateur"></h2>
+        <h2 class="row" id="utilisateur"><%= resultatUser %></h2>
 
-        <p class="row" id="resultatIMC"></p>
+        <p class="row" id="resultatIMC"><%= resultatIMC %></p>
 
-        <p class="row" id="resultatCORP"></p>
+        <p class="row" id="resultatCORP"><%= resultatCORP %></p>
 
-        <img class="row" id="resultatIMG" src="" >
+        <img class="row" id="resultatIMG" src="<%= image %>" >
 
     </div>
 
