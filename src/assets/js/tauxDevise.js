@@ -1,4 +1,5 @@
 const EventEmitter = require('events');
+
 let fs = require('fs');
 const event = new EventEmitter;
 
@@ -15,7 +16,7 @@ let montantsSaisie = {
 /****************************************************** */
 /* Récupération des taux de devise et appel conversion  */
 /****************************************************** */
-function change (pathFile, data) {
+function change (pathFile, session, req, res) {
     taux.splice(0, taux.length);
     const stream = fs.createReadStream(pathFile); //Lecture du contenu du JSON
     stream.setEncoding('utf8'); //On encode pour ne pas avoir les octets bruts
@@ -23,20 +24,20 @@ function change (pathFile, data) {
         taux= (JSON.parse(data)); //On range le contenu dans taux
         console.log(taux);
     }).on('end', ()=>{
-        event.emit('change', changeDevise(data, taux)); //Génération de l'évènement permettant la conversion de la devise
+        event.emit('change', changeDevise(taux, session, req, res)); //Génération de l'évènement permettant la conversion de la devise
     })
     
 }
 /******************************************************* */
 /*               Fonction de change devise               */
 /******************************************************* */
-function changeDevise(data, tauxlus){
+function changeDevise(tauxlus, session, req, res){
 
     //Rangement des paramètres soumis dans le formulaire
 
-    let MontantEUR = Number(data.montantEUR);
-    let MontantUSD = Number(data.montantUSD);
-    let MontantCNY = Number(data.montantCNY);
+    let MontantEUR = Number(req.body.montantEUR);
+    let MontantUSD = Number(req.body.montantUSD);
+    let MontantCNY = Number(req.body.montantCNY);
 
     //Détection de la devise modifiée
     if (MontantEUR !== montantsSaisie.EURO ) {
@@ -56,10 +57,16 @@ function changeDevise(data, tauxlus){
     }
 
     //Retourne les montant dans le formulaire
-    data.montantEUR = montantsSaisie.EURO;
-    data.montantUSD = montantsSaisie.EURO;
-    data.montantCNY = montantsSaisie.CNY;
+    req.body.montantEUR = montantsSaisie.EURO;
+    req.body.montantUSD = montantsSaisie.EURO;
+    req.body.montantCNY = montantsSaisie.CNY;
     
+    res.render('convDevise', {
+        session: session,
+        montantEUR: montantsSaisie.EURO,
+        montantUSD: montantsSaisie.USD,
+        montantCNY: montantsSaisie.CNY
+    });
 
     return montantsSaisie;
 }

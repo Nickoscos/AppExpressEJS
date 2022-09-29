@@ -58,7 +58,8 @@ app.get('/calculImc', (request, response) => {
             resultatIMC : "",
             resultatUser : "",
             resultatCORP: "",
-            image : ""
+            image : "",
+            session: crmFct.session
         });
 })
 
@@ -73,28 +74,25 @@ app.post('/calculImc', (request, response) => {
         resultatIMC : imcFct.userIMC.resultatIMC,
         resultatUser : imcFct.userIMC.resultatUser,
         resultatCORP: imcFct.userIMC.resultatCORP,
-        image : imcFct.userIMC.image
+        image : imcFct.userIMC.image,
+        session: crmFct.session
     });
 
 });
 
 //Routage vers page convertisseur devise
 app.get('/convDevise', (request, response) => {
-    fs.readFile(path.join(_dirnamePages + 'pages/convDevise.html'), function (error, data) {
-        response.writeHead(200, { 'Content-Type': 'text/html' });
-        response.write(data);
-        response.end();
+    response.render('convDevise', {
+        session: crmFct.session,
+        montantEUR: 0,
+        montantUSD: 0,
+        montantCNY: 0
     });
 })
 
 //Routage POST page convertisseur devise
 app.post('/convDevise', (request, response) => { 
-    tauxFct.change(pathFile, request.body);
-    fs.readFile(path.join(_dirnamePages + 'pages/convDevise.html'), function (error, data) {
-        response.writeHead(200, { 'Content-Type': 'text/html' });
-        response.write(data);
-        response.end();
-    });
+    tauxFct.change(pathFile, crmFct.session, request, response);
 })
 
 //Routage vers page inscription
@@ -130,15 +128,15 @@ app.get('/listPosts', (req, res) => {
 
 //Routage POST page Liste Posts
 app.post('/listPosts', (req, res) => {
-    req.on('data', (data) => {
-        postsFct.lovePost(data)
+    // req.on('data', (data) => {
+        postsFct.lovePost(req.body)
     // Rafraichi la page une fois la mise à jour de l'appréciation
-    }).on('end', ()=>{
+    // }).on('end', ()=>{
         res.render('listePosts', {
             listPosts: postsFct.listPosts,
             session: crmFct.session
         });
-    });
+    // });
 })
 
 //Routage GET vers page new Post
@@ -150,12 +148,12 @@ app.get('/newPost', (req, res) => {
 
 //Routage POST page new Posts
 app.post('/newPost', (req, res) => {
-    req.on('data', (data) => {
-        postsFct.addPost(data)
+    //req.on('data', (data) => {
+    postsFct.addPost(req.body)
     // Rafraichi la page une fois la mise à jour de l'appréciation
-    }).on('end', ()=>{
-        res.redirect('/listPosts');
-    });
+    // }).on('end', ()=>{
+    res.redirect('/listPosts');
+    // });
 });
 
 //Routage DELETE page new Posts

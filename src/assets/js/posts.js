@@ -3,21 +3,6 @@ let fs = require('fs');
 const event = new EventEmitter;
 
 
-// let listPosts = [
-//     {
-//         titre : "test 1",
-//         content: "Ceci est le contenu 1",
-//         date: date.toUTCString(),
-//         loveit: 0,
-//     },
-//     {
-//         titre : "test 2",
-//         content: "Ceci est le contenu 2",
-//         date: date.toUTCString(),
-//         loveit: 0,
-//     }
-// ]
-
 let listPosts = []
 
 class Post {
@@ -33,16 +18,21 @@ class Post {
 function lovePost(data){
 
     //Récupération des paramètres URL
+    
     let paramsString = String(data) //transforme les data URL en string pour la class URLSearchParams
     let searchParams = new URLSearchParams(paramsString); //Déclare la classe searchParams qui contient les input du formulaire
 
-    let id = null
-
-    if (searchParams.get("love")!==null){ //Détection d'un appui sur love it
-        id=searchParams.get("love");
+    let id = null;
+    
+    // id=data.love;
+    // console.log(id)
+    if (data.love!==null){ //Détection d'un appui sur love it
+        id=data.love
         listPosts[id].loveit++;
-    } else if (searchParams.get("dontlove")!==null) { //Détection d'un appui sur don't love it
-        id=searchParams.get("dontlove");
+    }  
+    if (data.dontlove!==null) { //Détection d'un appui sur don't love it
+        id=data.dontlove
+        
         listPosts[id].loveit--;
     }
 
@@ -60,8 +50,8 @@ function addPost(data){
 
     //Rangement des paramètres saisies dans l'objet à ajouter
     let post = new Post(
-        searchParams.get("titre"),
-        searchParams.get("content"),
+        data.titre,
+        data.content,
         date
     );
     
