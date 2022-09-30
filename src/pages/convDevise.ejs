@@ -12,8 +12,8 @@
 </head>
 
 <body>
-    <div class="container">
-
+    <div class="container justify-content-center text-center">
+        <h3>Calcul de devises</h3>
         <form class="example-form"  id="#convDeviseForm" method="POST">
                 <h4>Montant en euros:</h4>
                 <div class="example-full-width" appearance="fill">
@@ -38,6 +38,16 @@
                 </div>
         </form>
         <br>
+
+        <div class="justify-content-center text-center"> 
+            <h3>Liste des derniers calculs</h3>
+            <ul>
+                <% listChange.forEach(function(changelu) { %>
+                    <li><%= changelu.montantEUR %>€ - <%= changelu.montantUSD %>$US - <%= changelu.montantCNY %> ¥ - <%= changelu.created_date %></li>
+                <% }); %>
+            </ul>
+        </div>
+
     </div>
 
 </body>

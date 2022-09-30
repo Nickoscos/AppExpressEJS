@@ -62,12 +62,7 @@ app.post('/calculImc', (request, response) => {
 
 //Routage vers page convertisseur devise
 app.get('/convDevise', (request, response) => {
-    response.render('convDevise', {
-        session: crmFct.session,
-        montantEUR: 0,
-        montantUSD: 0,
-        montantCNY: 0
-    });
+    crmFct.getDevises(request, response);
 })
 
 //Routage POST page convertisseur devise

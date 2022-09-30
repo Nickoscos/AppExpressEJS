@@ -108,8 +108,6 @@ const getImc = (req, res) => {
             listIMC: imc
         });
     });
-
-
 };
 
 const addNewChange = (montantsSaisie, res) => {
@@ -123,7 +121,7 @@ const addNewChange = (montantsSaisie, res) => {
             res.send(err);
         }
     })
-    Devises.find({}, (err, imc) => {
+    Devises.find({}, (err, changes) => {
         if (err) {
             res.send(err);
         };
@@ -132,9 +130,24 @@ const addNewChange = (montantsSaisie, res) => {
             montantUSD: montantsSaisie.USD,
             montantCNY: montantsSaisie.CNY,
             session: session,
+            listChange: changes
         });
     });
-
 }
 
-module.exports = { addNewUser, findUser,addNewIMC, getImc, addNewChange, listIMC, session }
+const getDevises = (req, res) => {
+    Devises.find({}, (err, changes) => {
+        if (err) {
+            res.send(err);
+        };
+        res.render('convDevise', {
+            montantEUR: 0,
+            montantUSD: 0,
+            montantCNY: 0,
+            session: session,
+            listChange: changes
+        });
+    });
+};
+
+module.exports = { addNewUser, findUser,addNewIMC, getImc, addNewChange, getDevises, listIMC, session }
