@@ -128,15 +128,12 @@ app.get('/listPosts', (req, res) => {
 
 //Routage POST page Liste Posts
 app.post('/listPosts', (req, res) => {
-    // req.on('data', (data) => {
         postsFct.lovePost(req.body)
     // Rafraichi la page une fois la mise à jour de l'appréciation
-    // }).on('end', ()=>{
-        res.render('listePosts', {
-            listPosts: postsFct.listPosts,
-            session: crmFct.session
-        });
-    // });
+    res.render('listePosts', {
+        listPosts: postsFct.listPosts,
+        session: crmFct.session
+    });
 })
 
 //Routage GET vers page new Post
@@ -148,23 +145,16 @@ app.get('/newPost', (req, res) => {
 
 //Routage POST page new Posts
 app.post('/newPost', (req, res) => {
-    //req.on('data', (data) => {
     postsFct.addPost(req.body)
     // Rafraichi la page une fois la mise à jour de l'appréciation
-    // }).on('end', ()=>{
     res.redirect('/listPosts');
-    // });
 });
 
 //Routage DELETE page new Posts
 app.delete('/ListPosts/:id', (req, res) => {
-    //res.send('Got a DELETE request at /listPosts');
-    req.on('data', (data) => {
-        postsFct.deletePost(data)
+    postsFct.deletePost(req.body)
     // Rafraichi la page une fois la mise à jour de l'appréciation
-    }).on('end', ()=>{
-        res.redirect('/listPosts');
-    });
+    res.redirect('/listPosts');
 })
 
 //Routage GET page new Posts
@@ -173,19 +163,18 @@ app.get('/ListPosts/:id', (req, res) => {
     console.log(id)
     res.render('updatePost', {
         post: postsFct.listPosts[id],
-        id: id
+        id: id,
+        session: crmFct.session
     });
 });
 
 //Routage PUT page new Posts
 app.put('/ListPosts/:id', (req, res) => {
     let id = req.params.id
-    req.on('data', (data) => {
-        postsFct.updatePost(data, id)
+    postsFct.updatePost(req.body, id)
     // Rafraichi la page une fois la mise à jour de l'appréciation
-    }).on('end', ()=>{
-        res.redirect('/listPosts');
-    });
+    res.redirect('/listPosts');
+
 });
 
 //Routage vers page connexion

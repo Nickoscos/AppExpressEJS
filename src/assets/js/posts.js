@@ -17,22 +17,14 @@ class Post {
 //Fonction appréciation posts
 function lovePost(data){
 
-    //Récupération des paramètres URL
-    
-    let paramsString = String(data) //transforme les data URL en string pour la class URLSearchParams
-    let searchParams = new URLSearchParams(paramsString); //Déclare la classe searchParams qui contient les input du formulaire
-
     let id = null;
     
-    // id=data.love;
-    // console.log(id)
-    if (data.love!==null){ //Détection d'un appui sur love it
+    if (data.love!==undefined){ //Détection d'un appui sur love it
         id=data.love
         listPosts[id].loveit++;
     }  
-    if (data.dontlove!==null) { //Détection d'un appui sur don't love it
+    if (data.dontlove!==undefined) { //Détection d'un appui sur don't love it
         id=data.dontlove
-        
         listPosts[id].loveit--;
     }
 
@@ -41,10 +33,6 @@ function lovePost(data){
 
 //Fonction ajout post
 function addPost(data){
-
-    //Récupération des paramètres URL
-    let paramsString = String(data) //transforme les data URL en string pour la class URLSearchParams
-    let searchParams = new URLSearchParams(paramsString); //Déclare la classe searchParams qui contient les input du formulaire
 
     let date = new Date();
 
@@ -63,16 +51,10 @@ function addPost(data){
 //Fonction appréciation posts
 function deletePost(data){
 
-    //Récupération des paramètres URL
-    let paramsString = String(data) //transforme les data URL en string pour la class URLSearchParams
-    let searchParams = new URLSearchParams(paramsString); //Déclare la classe searchParams qui contient les input du formulaire
-
     let id = null
-    console.log(searchParams);
-    // console.log(searchParams.get("delete"));
 
-    if (searchParams.get("delete")!==null){ //Détection d'un appui sur love it
-        id=searchParams.get("delete");
+    if (data.delete!==undefined){ //Détection d'un appui sur love it
+        id=data.delete;
         console.log(id);
         listPosts.splice(id,1);
     } 
@@ -83,16 +65,12 @@ function deletePost(data){
 //Fonction mise à jour post
 function updatePost(data, id){
 
-    //Récupération des paramètres URL
-    let paramsString = String(data) //transforme les data URL en string pour la class URLSearchParams
-    let searchParams = new URLSearchParams(paramsString); //Déclare la classe searchParams qui contient les input du formulaire
-
     let date = new Date();
 
     //Rangement des paramètres saisies dans l'objet à ajouter
     let post = new Post(
-        searchParams.get("titre"),
-        searchParams.get("content"),
+        data.titre,
+        data.content,
         date
     );
     
