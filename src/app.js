@@ -95,10 +95,11 @@ app.post('/inscription', (request, response) => {
 
 //Routage GET vers page Liste Posts
 app.get('/listPosts', (req, res) => {
-    res.render('listePosts', {
-        listPosts: postsFct.listPosts,
-        session: crmFct.session
-    });
+    crmFct.getPosts(req, res);
+    // res.render('listePosts', {
+    //     listPosts: postsFct.listPosts,
+    //     session: crmFct.session
+    // });
 })
 
 // Routage POST page Liste Posts

@@ -171,6 +171,18 @@ const addNewPost = (post, res) => {
     //         listPosts: posts
     //     });
     // });
-}
+};
 
-module.exports = { addNewUser, findUser,addNewIMC, getImc, addNewChange, getDevises, addNewPost, listIMC, session }
+const getPosts = (req, res) => {
+    Post.find({}, (err, posts) => {
+        if (err) {
+            res.send(err);
+        };
+        res.render('listePosts', {
+            session: session,
+            listPosts: posts
+        });
+    });
+};
+
+module.exports = { addNewUser, findUser,addNewIMC, getImc, addNewChange, getDevises, addNewPost, getPosts, listIMC, session }
