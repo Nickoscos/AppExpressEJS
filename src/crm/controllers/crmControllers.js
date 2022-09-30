@@ -2,6 +2,7 @@ const mongoose = require('mongoose');
 const Schema = require('../models/crmModel');
 
 const User = mongoose.model('User', Schema.UserSchema);
+const Imc = mongoose.model('Imc', Schema.ImcSchema);
 
 let session = {
     message: "",
@@ -55,4 +56,19 @@ const getUser = (req, res) => {
 
 };
 
-module.exports = { addNewUser, findUser, session }
+const addNewIMC = (userImc, res) => {
+    let newImc = new Imc({
+        nom: userImc.nom,
+        tailleCm : userImc.tailleCm,
+        poidsKg : userImc.poidsKg,
+        resultat : userImc.IMC
+    });
+    newImc.save((err, imc) => {
+        if (err) {
+            res.send(err);
+        }
+        //res.json(user);
+    })
+}
+
+module.exports = { addNewUser, findUser,addNewIMC, session }

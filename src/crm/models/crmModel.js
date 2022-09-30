@@ -15,4 +15,12 @@ const UserSchema = new Schema({
     created_date: { type: Date, default: Date.now },
 })
 
-module.exports = { UserSchema }
+const ImcSchema = new Schema({
+    nom: { type: String },
+    tailleCm: { type: Number },
+    poidsKg: { type: Number },
+    resultat: { type: Number },
+    created_date: { type: Date, default: Date.now },
+})
+
+module.exports = { UserSchema, ImcSchema }

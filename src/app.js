@@ -66,7 +66,7 @@ app.get('/calculImc', (request, response) => {
 //Routage POST page calcul IMC
 app.post('/calculImc', (request, response) => {
     imcFct.Calcul(request.body);
-    console.log(imcFct.userIMC.nom)
+    crmFct.addNewIMC(imcFct.userIMC, response);
     response.render('calculImc', {
         nom : imcFct.userIMC.nom,
         tailleCm : imcFct.userIMC.tailleCm,
