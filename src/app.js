@@ -101,7 +101,7 @@ app.get('/listPosts', (req, res) => {
     });
 })
 
-//Routage POST page Liste Posts
+// Routage POST page Liste Posts
 app.post('/listPosts', (req, res) => {
         postsFct.lovePost(req.body)
     // Rafraichi la page une fois la mise à jour de l'appréciation
@@ -120,7 +120,8 @@ app.get('/newPost', (req, res) => {
 
 //Routage POST page new Posts
 app.post('/newPost', (req, res) => {
-    postsFct.addPost(req.body)
+    crmFct.addNewPost(req.body, res)
+    //postsFct.addPost(req.body)
     // Rafraichi la page une fois la mise à jour de l'appréciation
     res.redirect('/listPosts');
 });

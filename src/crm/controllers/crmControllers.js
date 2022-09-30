@@ -4,6 +4,7 @@ const Schema = require('../models/crmModel');
 const User = mongoose.model('User', Schema.UserSchema);
 const Imc = mongoose.model('Imc', Schema.ImcSchema);
 const Devises = mongoose.model('Devises', Schema.DevisesSchema);
+const Post = mongoose.model('Post', Schema.PostSchema);
 
 let session = {
     message: "",
@@ -150,4 +151,26 @@ const getDevises = (req, res) => {
     });
 };
 
-module.exports = { addNewUser, findUser,addNewIMC, getImc, addNewChange, getDevises, listIMC, session }
+const addNewPost = (post, res) => {
+    let newPost = new Post({
+        titre: post.titre,
+        content: post.content,
+        loveit: 0,
+    });
+    newPost.save((err, post) => {
+        if (err) {
+            res.send(err);
+        }
+    })
+    // Post.find({}, (err, posts) => {
+    //     if (err) {
+    //         res.send(err);
+    //     };
+    //     res.render('convDevise', {
+    //         session: session,
+    //         listPosts: posts
+    //     });
+    // });
+}
+
+module.exports = { addNewUser, findUser,addNewIMC, getImc, addNewChange, getDevises, addNewPost, listIMC, session }

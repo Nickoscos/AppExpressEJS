@@ -30,4 +30,11 @@ const DevisesSchema = new Schema({
     created_date: { type: Date, default: Date.now },
 })
 
-module.exports = { UserSchema, ImcSchema, DevisesSchema }
+const PostSchema = new Schema({
+    titre : { type: String },
+    content: { type: String },
+    loveit: { type: Number },
+    created_date: { type: Date, default: Date.now },
+})
+
+module.exports = { UserSchema, ImcSchema, DevisesSchema, PostSchema }

@@ -9,8 +9,8 @@ class Post {
     constructor(titre, content, date) {
         this.titre = titre;
         this.content = content;
-        this.date = date.toUTCString();
         this.loveit = 0;
+        this.date = date.toUTCString();
     }
 }
 
