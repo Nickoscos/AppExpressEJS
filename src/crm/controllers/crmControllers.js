@@ -9,6 +9,8 @@ let session = {
     active: false
 };
 
+let listIMC = [];
+
 const addNewUser = (req, res) => {
     let newUser = new User(req.body)
     console.log(req.body)
@@ -67,8 +69,46 @@ const addNewIMC = (userImc, res) => {
         if (err) {
             res.send(err);
         }
-        //res.json(user);
     })
+    Imc.find({}, (err, imc) => {
+        if (err) {
+            res.send(err);
+        };
+        res.render('calculImc', {
+            nom : userImc.nom,
+            tailleCm : userImc.tailleCm,
+            poidsKg : userImc.poidsKg,
+            resultatIMC : userImc.resultatIMC,
+            resultatUser : userImc.resultatUser,
+            resultatCORP: userImc.resultatCORP,
+            image : userImc.image,
+            session: session,
+            listIMC: imc
+        });
+    });
+
 }
 
-module.exports = { addNewUser, findUser,addNewIMC, session }
+const getImc = (req, res) => {
+    Imc.find({}, (err, imc) => {
+        if (err) {
+            res.send(err);
+        };
+        res.render('calculImc', {
+            nom : "",
+            tailleCm : "",
+            poidsKg : "", 
+            resultatUser : "",
+            resultatIMC : "",
+            resultatUser : "",
+            resultatCORP: "",
+            image : "",
+            session: session,
+            listIMC: imc
+        });
+    });
+
+
+};
+
+module.exports = { addNewUser, findUser,addNewIMC, getImc, listIMC, session }

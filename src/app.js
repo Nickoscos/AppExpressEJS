@@ -50,33 +50,24 @@ app.get('/', (request, response) => {
 
 //Routage vers page calcul IMC
 app.get('/calculImc', (request, response) => {
-        response.render('calculImc', {
-            nom : "",
-            tailleCm : "",
-            poidsKg : "", 
-            resultatUser : "",
-            resultatIMC : "",
-            resultatUser : "",
-            resultatCORP: "",
-            image : "",
-            session: crmFct.session
-        });
+        crmFct.getImc(request, response);
 })
 
 //Routage POST page calcul IMC
 app.post('/calculImc', (request, response) => {
     imcFct.Calcul(request.body);
     crmFct.addNewIMC(imcFct.userIMC, response);
-    response.render('calculImc', {
-        nom : imcFct.userIMC.nom,
-        tailleCm : imcFct.userIMC.tailleCm,
-        poidsKg : imcFct.userIMC.poidsKg,
-        resultatIMC : imcFct.userIMC.resultatIMC,
-        resultatUser : imcFct.userIMC.resultatUser,
-        resultatCORP: imcFct.userIMC.resultatCORP,
-        image : imcFct.userIMC.image,
-        session: crmFct.session
-    });
+    // response.render('calculImc', {
+    //     nom : imcFct.userIMC.nom,
+    //     tailleCm : imcFct.userIMC.tailleCm,
+    //     poidsKg : imcFct.userIMC.poidsKg,
+    //     resultatIMC : imcFct.userIMC.resultatIMC,
+    //     resultatUser : imcFct.userIMC.resultatUser,
+    //     resultatCORP: imcFct.userIMC.resultatCORP,
+    //     image : imcFct.userIMC.image,
+    //     session: crmFct.session,
+    //     listIMC: crmFct.listIMC
+    // });
 
 });
 

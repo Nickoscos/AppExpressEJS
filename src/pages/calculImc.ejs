@@ -11,38 +11,58 @@
 </head>
 
 <body>
-    <h1>Calcul de l'IMC</h1>
-    <div class="container">
-        <form id="#IMCForm" method="POST">
-            <div class="row">
+    
+    <div class="container-fluid justify-content-center text-center">
+        <h1>Calcul de l'IMC</h1>
+        <form id="#IMCForm" class="justify-content-center" method="POST">
+            <div class="row justify-content-center text-center">
                 <div class="col-2"><label>Nom: </label></div>
                 <div class="col-2"><input type="text" name="nom" id="" value="<%= nom %>"></div>
             </div>
-            <div class = "row">
+            <div class = "row justify-content-center text-center">
                 <div class="col-2"><label>Taille (en cm): </label></div>
                 <div class="col-2"><input type="number" name="tailleCm" id="tailleCm" value="<%= tailleCm %>"></div>
             </div>
-            <div class = "row">
+            <div class = "row justify-content-center text-center">
                 <div class="col-2"><label>Poids (en kg):  </label></div>
                 <div class="col-2"><input type="number" name="poidsKg" id="poidsKg" value="<%= poidsKg %>"></div>
             </div>
             <button type="submit" id="#btn">Calculer</button>
         </form>
-    </div>
+    <!-- </div> -->
 
-    <div class="container">
+    <!-- <div class="container"> -->
+        <div class="row justify-content-center text-center">
+            <div class="col-4">
+                <h3>Résultat du calcul:</h3>
+                <h4 class="row" id="utilisateur"><%= resultatUser %></h4>
+    
+                <p class="row" id="resultatIMC"><%= resultatIMC %></p>
+        
+                <p class="row" id="resultatCORP"><%= resultatCORP %></p>
+        
+                <img class="row" id="resultatIMG" src="<%= image %>" >
+            </div>
+            <div class="col-6"> 
+                <h3>Liste des derniers calculs</h3>
+                <ul>
+                    <% listIMC.forEach(function(imclus) { %>
+                        <li id="nomlus"><%= imclus.nom %> - <%= imclus.tailleCm %>cm - <%= imclus.poidsKg %>Kg - <%= imclus.IMC %> - <%= imclus.created_date %></li>
+                    <% }); %>
+                </ul>
+            </div>
+        </div>
 
-        <h2 class="row" id="utilisateur"><%= resultatUser %></h2>
+        
 
-        <p class="row" id="resultatIMC"><%= resultatIMC %></p>
+    <!-- </div> -->
+    <!-- <div class="container"></div> -->
 
-        <p class="row" id="resultatCORP"><%= resultatCORP %></p>
-
-        <img class="row" id="resultatIMG" src="<%= image %>" >
 
     </div>
 
 </body>
+
 <footer>
     <nav class="navbar navbar-expand-lg navbar-light bg-light footer" routerLinkActive="active">
         <div class="container-fluid">
