@@ -1,4 +1,5 @@
 const EventEmitter = require('events');
+const crmFct = require('../crm/controllers/crmControllers')
 
 let fs = require('fs');
 const event = new EventEmitter;
@@ -58,15 +59,18 @@ function changeDevise(tauxlus, session, req, res){
 
     //Retourne les montant dans le formulaire
     req.body.montantEUR = montantsSaisie.EURO;
-    req.body.montantUSD = montantsSaisie.EURO;
+    req.body.montantUSD = montantsSaisie.USD;
     req.body.montantCNY = montantsSaisie.CNY;
+
+    console.log(montantsSaisie)
+    crmFct.addNewChange(montantsSaisie, res);
     
-    res.render('convDevise', {
-        session: session,
-        montantEUR: montantsSaisie.EURO,
-        montantUSD: montantsSaisie.USD,
-        montantCNY: montantsSaisie.CNY
-    });
+    // res.render('convDevise', {
+    //     session: session,
+    //     montantEUR: montantsSaisie.EURO,
+    //     montantUSD: montantsSaisie.USD,
+    //     montantCNY: montantsSaisie.CNY
+    // });
 
     return montantsSaisie;
 }

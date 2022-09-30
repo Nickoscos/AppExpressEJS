@@ -23,4 +23,11 @@ const ImcSchema = new Schema({
     created_date: { type: Date, default: Date.now },
 })
 
-module.exports = { UserSchema, ImcSchema }
+const DevisesSchema = new Schema({
+    montantEUR: { type: Number },
+    montantUSD: { type: Number },
+    montantCNY: { type: Number },
+    created_date: { type: Date, default: Date.now },
+})
+
+module.exports = { UserSchema, ImcSchema, DevisesSchema }

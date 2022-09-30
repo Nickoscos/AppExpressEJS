@@ -1,12 +1,12 @@
 console.log("Lancement de l'application");
 
 require('./config/.env');
-
-
-const tauxFct = require('./assets/js/tauxDevise.js');
-const imcFct = require('./assets/js/calculIMC.js');
-const inscrFct = require('./assets/js/inscription.js');
-const postsFct = require('./assets/js/posts.js');
+const EventEmitter = require('events');
+const event = new EventEmitter;
+const tauxFct = require('./js/tauxDevise.js');
+const imcFct = require('./js/calculIMC.js');
+const inscrFct = require('./js/inscription.js');
+const postsFct = require('./js/posts.js');
 const crmFct = require('./crm/controllers/crmControllers.js')
 
 const mongoose = require('mongoose');
@@ -57,17 +57,6 @@ app.get('/calculImc', (request, response) => {
 app.post('/calculImc', (request, response) => {
     imcFct.Calcul(request.body);
     crmFct.addNewIMC(imcFct.userIMC, response);
-    // response.render('calculImc', {
-    //     nom : imcFct.userIMC.nom,
-    //     tailleCm : imcFct.userIMC.tailleCm,
-    //     poidsKg : imcFct.userIMC.poidsKg,
-    //     resultatIMC : imcFct.userIMC.resultatIMC,
-    //     resultatUser : imcFct.userIMC.resultatUser,
-    //     resultatCORP: imcFct.userIMC.resultatCORP,
-    //     image : imcFct.userIMC.image,
-    //     session: crmFct.session,
-    //     listIMC: crmFct.listIMC
-    // });
 
 });
 
@@ -83,8 +72,8 @@ app.get('/convDevise', (request, response) => {
 
 //Routage POST page convertisseur devise
 app.post('/convDevise', (request, response) => { 
-    tauxFct.change(pathFile, crmFct.session, request, response);
-})
+    tauxFct.change(pathFile, crmFct.session, request, response)
+});
 
 //Routage vers page inscription
 app.get('/inscription', (request, response) => {

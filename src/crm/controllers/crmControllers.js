@@ -3,6 +3,7 @@ const Schema = require('../models/crmModel');
 
 const User = mongoose.model('User', Schema.UserSchema);
 const Imc = mongoose.model('Imc', Schema.ImcSchema);
+const Devises = mongoose.model('Devises', Schema.DevisesSchema);
 
 let session = {
     message: "",
@@ -111,4 +112,29 @@ const getImc = (req, res) => {
 
 };
 
-module.exports = { addNewUser, findUser,addNewIMC, getImc, listIMC, session }
+const addNewChange = (montantsSaisie, res) => {
+    let newChange = new Devises({
+        montantEUR: montantsSaisie.EURO,
+        montantUSD: montantsSaisie.USD,
+        montantCNY: montantsSaisie.CNY,
+    });
+    newChange.save((err, devises) => {
+        if (err) {
+            res.send(err);
+        }
+    })
+    Devises.find({}, (err, imc) => {
+        if (err) {
+            res.send(err);
+        };
+        res.render('convDevise', {
+            montantEUR: montantsSaisie.EURO,
+            montantUSD: montantsSaisie.USD,
+            montantCNY: montantsSaisie.CNY,
+            session: session,
+        });
+    });
+
+}
+
+module.exports = { addNewUser, findUser,addNewIMC, getImc, addNewChange, listIMC, session }
