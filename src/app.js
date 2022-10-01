@@ -73,7 +73,8 @@ app.post('/convDevise', (request, response) => {
 //Routage vers page inscription
 app.get('/inscription', (request, response) => {
     response.render('inscription', {
-        session: crmFct.session
+        session: crmFct.session,
+        message: ''
     });
 
 })
@@ -83,12 +84,10 @@ app.post('/inscription', (request, response) => {
         inscrFct.validationProfil(request.body);
         if (inscrFct.profil.valid) {
             crmFct.addNewUser(request, response);
-            response.render('accueil', {
-                session: crmFct.session
-            });
         } else {
             response.render('inscription', {
-                session: crmFct.session
+                session: crmFct.session,
+                message: ''
             });
         }
     });

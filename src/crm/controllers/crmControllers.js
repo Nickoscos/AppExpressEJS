@@ -16,12 +16,26 @@ let listIMC = [];
 const addNewUser = (req, res) => {
     let newUser = new User(req.body)
     console.log(req.body)
-    newUser.save((err, user) => {
-        if (err) {
-            res.send(err);
-        }
-        //res.json(user);
-    })
+
+    User.findOne({ email: req.body.email })
+        .then(user => {
+            if (!user) {
+                newUser.save((err, user) => {
+                    if (err) {
+                        res.send(err);
+                    }
+                    res.render('accueil', {
+                        session: session
+                    });
+                })
+            } else {
+                console.log('Utilisateur existant')
+                res.render('inscription', {
+                    session: session,
+                    message: 'Utilisateur existant'
+                });
+            } });
+    
 }
 
 const findUser = (req, res) => {
