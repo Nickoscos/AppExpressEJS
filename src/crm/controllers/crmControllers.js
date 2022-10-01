@@ -162,15 +162,6 @@ const addNewPost = (post, res) => {
             res.send(err);
         }
     })
-    // Post.find({}, (err, posts) => {
-    //     if (err) {
-    //         res.send(err);
-    //     };
-    //     res.render('convDevise', {
-    //         session: session,
-    //         listPosts: posts
-    //     });
-    // });
 };
 
 const getPosts = (req, res) => {
@@ -199,4 +190,31 @@ const lovePost = (req, res) => {
     });
 };
 
-module.exports = { addNewUser, findUser,addNewIMC, getImc, addNewChange, getDevises, addNewPost, getPosts, lovePost, listIMC, session }
+const getOnePost = (req, res) => {
+    Post.findOne({ id: req.body._id }, (err, post) => {
+        if (err) {
+            res.send(err);
+        };
+        res.render('updatePost', {
+            post: post,
+            id: post._id,
+            session: session
+        });
+    });
+};
+
+const updatePost = (req, res) => {
+    const update = {
+        titre: req.body.titre,
+        content: req.body.content,
+        created_date : Date.now()
+    }
+    Post.findOneAndUpdate({ id: req.body._id }, update, (err, post) => {
+        console.log('update post done')
+        res.redirect('/listPosts');
+    });
+};
+
+module.exports = { addNewUser, findUser,addNewIMC, getImc, 
+                    addNewChange, getDevises, addNewPost, getPosts, 
+                    lovePost, getOnePost, updatePost, listIMC, session }

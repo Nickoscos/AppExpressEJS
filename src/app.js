@@ -127,21 +127,23 @@ app.delete('/ListPosts/:id', (req, res) => {
 
 //Routage GET page new Posts
 app.get('/ListPosts/:id', (req, res) => {
-    let id = req.params.id
-    console.log(id)
-    res.render('updatePost', {
-        post: postsFct.listPosts[id],
-        id: id,
-        session: crmFct.session
-    });
+    crmFct.getOnePost(req, res)
+    // let id = req.params.id
+    // console.log(id)
+    // res.render('updatePost', {
+    //     post: postsFct.listPosts[id],
+    //     id: id,
+    //     session: crmFct.session
+    // });
 });
 
 //Routage PUT page new Posts
 app.put('/ListPosts/:id', (req, res) => {
-    let id = req.params.id
-    postsFct.updatePost(req.body, id)
-    // Rafraichi la page une fois la mise à jour de l'appréciation
-    res.redirect('/listPosts');
+    crmFct.updatePost(req,res)
+    // let id = req.params.id
+    // postsFct.updatePost(req.body, id)
+    // // Rafraichi la page une fois la mise à jour de l'appréciation
+    // res.redirect('/listPosts');
 
 });
 
