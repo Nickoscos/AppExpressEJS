@@ -185,4 +185,18 @@ const getPosts = (req, res) => {
     });
 };
 
-module.exports = { addNewUser, findUser,addNewIMC, getImc, addNewChange, getDevises, addNewPost, getPosts, listIMC, session }
+const lovePost = (req, res) => {
+    let newloveit = 0;
+    if (req.body.love!==undefined){ //Détection d'un appui sur love it
+        newloveit = Number(req.body.loveit) + 1
+    } else if (req.body.dontlove!==undefined){ //Détection d'un appui sur love it
+        newloveit = Number(req.body.loveit) - 1
+    }
+
+    Post.findOneAndUpdate({ id: req.body._id }, {$set:{loveit : newloveit}}, (err, post) => {
+        console.log('update love it done')
+        res.redirect('/listPosts');
+    });
+};
+
+module.exports = { addNewUser, findUser,addNewIMC, getImc, addNewChange, getDevises, addNewPost, getPosts, lovePost, listIMC, session }

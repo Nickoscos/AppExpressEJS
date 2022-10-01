@@ -96,20 +96,11 @@ app.post('/inscription', (request, response) => {
 //Routage GET vers page Liste Posts
 app.get('/listPosts', (req, res) => {
     crmFct.getPosts(req, res);
-    // res.render('listePosts', {
-    //     listPosts: postsFct.listPosts,
-    //     session: crmFct.session
-    // });
 })
 
 // Routage POST page Liste Posts
 app.post('/listPosts', (req, res) => {
-        postsFct.lovePost(req.body)
-    // Rafraichi la page une fois la mise à jour de l'appréciation
-    res.render('listePosts', {
-        listPosts: postsFct.listPosts,
-        session: crmFct.session
-    });
+    crmFct.lovePost(req, res);
 })
 
 //Routage GET vers page new Post

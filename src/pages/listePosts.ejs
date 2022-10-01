@@ -27,6 +27,7 @@
                     <div><h4 style="float:left">Titre: <%= post.titre %></H4><p style="float:right" ><%= post.created_date %></p></div>
                 </div>
                 <div class="row">
+                    <input name="id" hidden value="<%= post._id %>"></input>
                     <p><%= post.content %></p>
                 </div>
                 <div class="row">
@@ -35,7 +36,8 @@
                 <div class="row">
                     <div class="col-8">
                         <form method="POST" >
-                            <button type="submit" class ="mb-2" style="border: solid grey; background-color:green" name="love" value="<%= k %>">Love it!</button>
+                            <input name="loveit" hidden value="<%= post.loveit %>"></input>
+                            <button type="submit" class ="mb-2" style="border: solid grey; background-color:green" name="love" value="<%= post._id %>">Love it!</button>
                             <button type="submit" class ="mb-2" style="border: solid grey; background-color:red" name="dontlove" value="<%= k %>">Don't Love it!</button>
                         </form>
                     </div>

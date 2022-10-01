@@ -31,6 +31,7 @@ const DevisesSchema = new Schema({
 })
 
 const PostSchema = new Schema({
+    id: { type: Number },
     titre : { type: String },
     content: { type: String },
     loveit: { type: Number },
