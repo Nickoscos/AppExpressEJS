@@ -31,7 +31,8 @@ const findUser = (req, res) => {
                 session.message = 'L\'utilisateur n\'existe pas!';
                 session.active = false;
                 res.render('connexion', { 
-                    etat : session.message 
+                    etat : session.message,
+                    session : session
                 });
             } else {
                 if(req.body.password === user.password){
@@ -44,7 +45,8 @@ const findUser = (req, res) => {
                     session.message = 'Le mot de passe est erroné';   
                     session.active = false;
                     res.render('connexion', { 
-                        etat : session.message 
+                        etat : session.message,
+                        session : session
                     });
                 };
             }});
