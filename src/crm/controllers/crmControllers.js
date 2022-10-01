@@ -194,20 +194,26 @@ const getPosts = (req, res) => {
 
 const lovePost = (req, res) => {
     let newloveit = 0;
+    
     if (req.body.love!==undefined){ //Détection d'un appui sur love it
         newloveit = Number(req.body.loveit) + 1
+        Post.findOneAndUpdate({ _id: req.body.love }, {$set:{loveit : newloveit}}, (err, post) => {
+            console.log('update love it done')
+            res.redirect('/listPosts');
+        });
     } else if (req.body.dontlove!==undefined){ //Détection d'un appui sur love it
         newloveit = Number(req.body.loveit) - 1
+        Post.findOneAndUpdate({ _id: req.body.dontlove }, {$set:{loveit : newloveit}}, (err, post) => {
+            console.log('update love it done')
+            res.redirect('/listPosts');
+        });
     }
 
-    Post.findOneAndUpdate({ id: req.body._id }, {$set:{loveit : newloveit}}, (err, post) => {
-        console.log('update love it done')
-        res.redirect('/listPosts');
-    });
+
 };
 
 const getOnePost = (req, res) => {
-    Post.findOne({ id: req.body._id }, (err, post) => {
+    Post.findOne({ id: req.body.update }, (err, post) => {
         if (err) {
             res.send(err);
         };
@@ -220,19 +226,21 @@ const getOnePost = (req, res) => {
 };
 
 const updatePost = (req, res) => {
+    console.log(req.body.update)
     const update = {
         titre: req.body.titre,
         content: req.body.content,
         created_date : Date.now()
     }
-    Post.findOneAndUpdate({ id: req.body._id }, update, (err, post) => {
+    Post.findOneAndUpdate({ _id: req.body.update }, update, (err, post) => {
         console.log('update post done')
         res.redirect('/listPosts');
     });
 };
 
 const deletePost = (req, res) => {
-    Post.deleteOne({ id: req.body._id }, (err, post) => {
+    
+    Post.deleteOne({ _id: req.body.delete }, (err, post) => {
         console.log('delete post done')
         res.redirect('/listPosts');
     });
