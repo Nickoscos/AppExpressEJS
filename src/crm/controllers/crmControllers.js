@@ -215,6 +215,13 @@ const updatePost = (req, res) => {
     });
 };
 
+const deletePost = (req, res) => {
+    Post.deleteOne({ id: req.body._id }, (err, post) => {
+        console.log('delete post done')
+        res.redirect('/listPosts');
+    });
+};
+
 module.exports = { addNewUser, findUser,addNewIMC, getImc, 
                     addNewChange, getDevises, addNewPost, getPosts, 
-                    lovePost, getOnePost, updatePost, listIMC, session }
+                    lovePost, getOnePost, updatePost, deletePost, listIMC, session }
